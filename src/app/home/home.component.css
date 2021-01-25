@@ -1,0 +1,86 @@
+@font-face {
+    font-family: tuaglom;
+    src: url(../tuaglombold.woff);
+}
+
+.shop_container {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    background: #B6D8F3;
+    width: 30%;
+    max-width: 100%;
+    padding: 0 2%;
+}
+
+.element_container {
+    display: flex;
+    justify-content: center;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    width: 10vw;
+    min-width: 100px;
+}
+
+.product {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.product_img {
+    width: 200px;
+    min-width: 80px;
+    max-width: 100%;
+}
+
+.product_button {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+.button {
+    font-family: tuaglom;
+    font-size: 2em;
+    margin: 5%;
+    border-radius: 15px;
+    height: 5vw;
+    min-height: 50px;
+    background-color: #F8F6CF;
+    border-color: transparent;
+}
+
+.sweet_button_container {
+    display: flex;
+    justify-content: center;
+    margin: 2% 0%;
+    flex-wrap: wrap;
+}
+
+.sweet_button {
+    font-family: tuaglom;
+    font-size: 1.5em;
+    color: #F8F6CF;
+    margin: 5%;
+    padding: 0 5%;
+    border-radius: 15px;
+    height: 2vw;
+    min-height: 30px;
+    text-align: center;
+    background-color: #5784BB;
+    border-color: transparent;
+}
+
+.order_button {
+    font-family: tuaglom;
+    font-size: 1.5em;
+    margin: 2.5%;
+    border-radius: 15px;
+    height: 3vw;
+    min-height: 50px;
+    background-color: #F4CFE0;
+    border-color: transparent;
+}
