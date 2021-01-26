@@ -3,14 +3,46 @@
     src: url(../tuaglombold.woff);
 }
 
-.shop_container {
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* Page Layout */
+
+.container {
+    display: grid;
+    height: 100%;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 3fr 1fr;
+    grid-template-areas: "main sidebar" "footer sidebar";
+}
+
+.main {
+    grid-area: main;
+    display: grid;
+    background-color: #F4F4F4;
+    overflow-x: hidden;
+    margin: 1% 1% 0 1%;
+    z-index: 1
+}
+
+.sidebar {
+    grid-area: sidebar;
+    position: fixed;
+    overflow-y: auto;
+    height: 100%;
+    left: auto;
+    right: 0;
+    width: 25%;
     display: flex;
     flex-direction: column;
-    margin-left: auto;
     background: #B6D8F3;
-    width: 30%;
     max-width: 100%;
     padding: 0 2%;
+    z-index: 3;
 }
 
 .element_container {
@@ -39,18 +71,25 @@
 
 .product_button {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
 }
 
 .button {
     font-family: tuaglom;
     font-size: 2em;
+    padding: 0 5%;
     margin: 5%;
     border-radius: 15px;
     height: 5vw;
-    min-height: 50px;
+    min-height: 80px;
     background-color: #F8F6CF;
     border-color: transparent;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.button:focus {
+    background-color: #F4CFE0;
 }
 
 .sweet_button_container {
@@ -74,13 +113,45 @@
     border-color: transparent;
 }
 
-.order_button {
-    font-family: tuaglom;
-    font-size: 1.5em;
-    margin: 2.5%;
-    border-radius: 15px;
-    height: 3vw;
-    min-height: 50px;
+
+/* footer */
+
+footer {
+    grid-area: footer;
+    margin: 1%;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    bottom: 1%;
     background-color: #F4CFE0;
-    border-color: transparent;
+    z-index: 2;
+}
+
+footer h1 {
+    justify-self: start;
+}
+
+footer img {
+    width: 70%;
+    margin: auto 0 auto auto;
+}
+
+
+/* Resposive  */
+
+@media(max-width: 767px) {
+    .sidebar {
+        display: none;
+        width: 50%;
+    }
+    .container {
+        grid-template-columns: 1fr;
+        grid-template-rows: 3fr 1fr;
+        grid-template-areas: "main" "footer";
+    }
+    footer {
+        grid-template-columns: 2fr 1fr;
+    }
+    footer img {
+        width: 90%;
+    }
 }
