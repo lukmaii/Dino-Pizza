@@ -8,31 +8,26 @@
         </div>
         <h1 style="text-align: center; font-family: tuaglom; font-size: 3em;">MENU</h1>
         <div class="product">
-            <img class="product_img" src="/assets/img/Empty_.png" style="margin-bottom: 2.5%;">
+            <img class="product_img" src={{imageSrc}} style="margin-bottom: 2.5%;">
         </div>
         <div class="product_button">
-            <button class="button">ชานมเย็น</button>
-            <button class="button">ชานมเผือก</button>
-            <button class="button">ชานม<br>แคนตาลูป</button>
-            <button class="button">ชาเขียว</button>
-            <button class="button">โกโก้</button>
-            <button class="button">กาแฟ</button>
+            <button *ngFor="let imageButton of imageButtons; let name = index;" (click)="onClickProductBt(imageButton)" class="button">{{imageButton.name}}</button>
         </div>
         <h1 style="text-align: center; font-family: tuaglom; font-size: 3em;">Topping</h1>
         <div class="product_button">
-            <button class="button" style="height: 3vw;">Bubble</button>
-            <button class="button" style="height: 3vw;">No Bubble</button>
+            <button class="button" style="height: 3vw;" (click)=" onClickBbBt('yes')">Bubble</button>
+            <button class="button" style="height: 3vw;" (click)=" onClickBbBt('no')">No Bubble</button>
         </div>
         <h1 style="text-align: center; font-family: tuaglom; font-size: 3em;">Sweetness Level</h1>
         <div class="product">
-            <img class="product_img" src="/assets/img/Sweetness_Level_5.png" style="width: 150px;
+            <img class="product_img" src={{sugarimgSrc}} style="width: 150px;
             min-width: 50px;
             max-width: 100%;">
         </div>
         <div class="sweet_button_container">
-            <button class="sweet_button">-</button>
-            <p style="text-align: center; font-family: tuaglom; font-size: 2em; margin-top: 7%;">100%</p>
-            <button class="sweet_button">+</button>
+            <button class="sweet_button" (click)="sweetLevel('-')">-</button>
+            <p style="text-align: center; font-family: tuaglom; font-size: 2em; margin-top: 7%;">{{sweetness}}%</p>
+            <button class="sweet_button" (click)="sweetLevel('+')">+</button>
         </div>
         <button class="button" style="height: 3vw; min-height: 50; background-color: #F4CFE0; margin: 2.5%;">Order Now!!</button>
         <div class="product_button">

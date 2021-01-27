@@ -94,7 +94,7 @@
 
 .sweet_button_container {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     margin: 2% 0%;
     flex-wrap: wrap;
 }
@@ -111,6 +111,7 @@
     text-align: center;
     background-color: #5784BB;
     border-color: transparent;
+    cursor: pointer;
 }
 
 
