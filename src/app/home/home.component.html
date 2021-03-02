@@ -21,21 +21,21 @@
         <div class="product_button">
             <button *ngFor="let imageButton of imageButtons; let name = index;" (click)="onClickProductBt(imageButton)" class="button">{{imageButton.name}}</button>
         </div>
+        <h1 style="text-align: center; font-family: tuaglom; font-size: 3em;">เลือกขอบ</h1>
+        <div class="product_button">
+            <button class="button" style="height: 3vw;">หนานุ่ม</button>
+            <button class="button" style="height: 3vw;">บางกรอบ</button>
+        </div>
         <h1 style="text-align: center; font-family: tuaglom; font-size: 3em;">Topping</h1>
         <div class="product_button">
-            <button class="button" style="height: 3vw;" (click)=" onClickBbBt('yes')">Bubble</button>
-            <button class="button" style="height: 3vw;" (click)=" onClickBbBt('no')">No Bubble</button>
+            <button class="button" style="height: 3vw;" (click)=" onClickBbBt('yes')">เพิ่มชีส</button>
+            <button class="button" style="height: 3vw;" (click)=" onClickBbBt('no')">ไม่เพิ่มชีส</button>
         </div>
-        <h1 style="text-align: center; font-family: tuaglom; font-size: 3em;">Sweetness Level</h1>
-        <div class="product">
-            <img class="product_img" src={{sugarimgSrc}} style="width: 150px;
-            min-width: 50px;
-            max-width: 100%;">
-        </div>
-        <div class="sweet_button_container">
-            <button class="sweet_button" (click)="sweetLevel('-')">-</button>
-            <p style="text-align: center; font-family: tuaglom; font-size: 2em; margin-top: 7%;">{{sweetness}}%</p>
-            <button class="sweet_button" (click)="sweetLevel('+')">+</button>
+        <h1 style="text-align: center; font-family: tuaglom; font-size: 3em;">เลือกขนาด</h1>
+        <div class="product_button">
+            <button class="size_button">S</button>
+            <button class="size_button">M</button>
+            <button class="size_button">L</button>
         </div>
         <button class="button" style="height: 3vw; min-height: 50; background-color: #F4CFE0; margin: 2.5%;">Order Now!!</button>
         <div class="product_button">

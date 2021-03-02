@@ -1,6 +1,6 @@
 @font-face {
     font-family: tuaglom;
-    src: url(../tuaglombold.woff);
+    src: url("../tuaglombold.woff") format('woff');
 }
 
 * {
@@ -8,7 +8,6 @@
     padding: 0;
     box-sizing: border-box;
 }
-
 
 /* Page Layout */
 
@@ -64,7 +63,7 @@
 }
 
 .product_img {
-    width: 200px;
+    width: 300px;
     min-width: 80px;
     max-width: 100%;
 }
@@ -92,29 +91,21 @@
     background-color: #F4CFE0;
 }
 
-.sweet_button_container {
-    display: flex;
-    justify-content: space-between;
-    margin: 2% 0%;
-    flex-wrap: wrap;
-}
-
-.sweet_button {
+.size_button{
     font-family: tuaglom;
-    font-size: 1.5em;
-    color: #F8F6CF;
-    margin: 5%;
+    font-size: 2em;
     padding: 0 5%;
-    border-radius: 15px;
-    height: 2vw;
-    min-height: 30px;
-    text-align: center;
-    background-color: #5784BB;
+    margin: 5% auto;
+    border-radius: 50%;
+    width: 5vw;
+    height: 5vw;
+    min-height: 80px;
+    min-width: 80px;
+    background-color: #F8F6CF;
     border-color: transparent;
+    transition-duration: 0.4s;
     cursor: pointer;
 }
-
-
 /* footer */
 
 footer {
@@ -160,6 +151,7 @@ footer img {
 /*-------------------DFA-------------------*/
 .myDiagramDiv {
     background: whitesmoke;
+    display: block;
     width: 100%;
-    height: 600px;
+    height: 100%;
   }
