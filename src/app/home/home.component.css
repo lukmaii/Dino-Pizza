@@ -156,3 +156,10 @@ footer img {
         width: 90%;
     }
 }
+
+/*-------------------DFA-------------------*/
+.myDiagramDiv {
+    background: whitesmoke;
+    width: 100%;
+    height: 600px;
+  }

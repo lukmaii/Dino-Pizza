@@ -1,6 +1,14 @@
 <div class="container">
     <section class="main">
-        <h1>DFA</h1>
+        <!-- <h1>DFA</h1> -->
+        <gojs-diagram 
+        #myDiagram [initDiagram]='initDiagram' 
+        [nodeDataArray]='diagramNodeData'
+        [linkDataArray]='diagramLinkData'
+        [divClassName]='diagramDivClassName' 
+        [modelData]='diagramModelData'
+        [skipsDiagramUpdate]='skipsDiagramUpdate'>
+        </gojs-diagram>
     </section>
     <aside class="sidebar">
         <div class="element_container">
