@@ -1,52 +1,123 @@
 <div class="container">
-    <section class="main">
-        <!-- <h1>DFA</h1> -->
-        <gojs-diagram 
-        #myDiagram [initDiagram]='initDiagram' 
-        [nodeDataArray]='diagramNodeData'
-        [linkDataArray]='diagramLinkData'
-        [divClassName]='diagramDivClassName' 
-        [modelData]='diagramModelData'
-        [skipsDiagramUpdate]='skipsDiagramUpdate'>
-        </gojs-diagram>
-    </section>
-    <aside class="sidebar">
-        <div class="element_container">
-            <img class="logo" src="/assets/img/Dino_Logo.png">
-        </div>
-        <h1>MENU</h1>
-        <div class="product">
-            <img class="product_img" src={{imageSrc}} style="margin-bottom: 2.5%;">
-        </div>
-        <div class="product_button">
-            <button *ngFor="let imageButton of imageButtons;" (click)="onClickMenuBt(imageButton,$event)" class="button_menu" type="button" >{{imageButton.name}}</button>
-        </div>
-        <h1>เลือกขอบ</h1>
-        <div class="product_button">
-            <input *ngFor="let crustOpt of crustOpts;" type="radio" id={{crustOpt.opt}} name="crust">
-            <label *ngFor="let crustOpt of crustOpts;" class="button_crust" for={{crustOpt.opt}} style="height: 3vw;">{{crustOpt.opt}}</label>
-        </div>
-        <h1>Topping</h1>
-        <div class="product_button">
-            <button *ngFor="let cheeseOpt of cheeseOpts;" class="button_topping" type="button" style="height: 3vw;" (click)=" onClickBbBt(cheeseOpt.opt)">{{cheeseOpt.opt}}</button>
-        </div>
-        <h1>เลือกขนาด</h1>
-        <div class="product_button">
-                <input type="radio" id="sizeS" name="size">
-                <label class="size_button" for="sizeS"><img src="/assets/img/S.png"/></label>
-                <input type="radio" id="sizeM" name="size">
-                <label class="size_button" for="sizeM"><img src="/assets/img/M.png"/></label>
-                <input type="radio" id="sizeL" name="size">
-                <label class="size_button" for="sizeL"><img src="/assets/img/L.png"/></label>
-        </div>
-        <button class="button" type="submit" style="height: 3vw; min-height: 50; background-color: #F4CFE0; margin: 2.5%;">Order Now!!</button>
-        <div class="product_button">
-            <button class="button" type="reset" style="height: 3vw; min-height: 50;">Reset</button>
-            <button class="button" style="height: 3vw; min-height: 50;">Restart</button>
-        </div>
-    </aside>
-    <footer>
-        <h1>String Input</h1>
-        <img src="/assets/img/Dinosor.png">
-    </footer>
+  <section class="main">
+    <!-- <h1>DFA</h1> -->
+    <gojs-diagram
+      #myDiagram
+      [initDiagram]="initDiagram"
+      [nodeDataArray]="diagramNodeData"
+      [linkDataArray]="diagramLinkData"
+      [divClassName]="diagramDivClassName"
+      [modelData]="diagramModelData"
+      [skipsDiagramUpdate]="skipsDiagramUpdate"
+    >
+    </gojs-diagram>
+  </section>
+  <aside class="sidebar">
+    <div class="element_container">
+      <img class="logo" src="/assets/img/Dino_Logo.png" />
+    </div>
+    <h1>MENU</h1>
+    <div class="product">
+      <img
+        class="product_img"
+        src="{{ imageSrc }}"
+        style="margin-bottom: 2.5%"
+      />
+    </div>
+    <div class="product_button">
+      <label
+        *ngFor="let imageButton of imageButtons"
+        [ngClass]="{
+            button_crust: selectedValuePizza != imageButton.id,
+            button_crust_focus: selectedValuePizza == imageButton.id
+            }"
+        (click)="onClickMenuBt(imageButton)"
+        class="button_menu"
+        type="button"
+      >
+      <input
+          type="radio"
+          name="pizza"
+          [(ngModel)]="selectedValuePizza"
+          [value]="imageButton.id"
+        />
+        {{ imageButton.name }}
+      </label>
+    </div>
+    <h1>เลือกขอบ</h1>
+    <div class="product_button">
+      <label
+        *ngFor="let crustOpt of crustOpts"
+        [ngClass]="{
+        button_crust: selectedValueCrust != crustOpt.id,
+        button_crust_focus: selectedValueCrust == crustOpt.id
+        }"
+        class="button_crust"
+        style="height: 3vw"
+        ><input
+          type="radio"
+          name="crust"
+          [(ngModel)]="selectedValueCrust"
+          [value]="crustOpt.id"
+        />{{ crustOpt.opt }}</label
+      >
+    </div>
+    <h1>Topping</h1>
+    <div class="product_button">
+        <label
+        *ngFor="let cheeseOpt of cheeseOpts"
+        [ngClass]="{
+        button_crust: selectedValueTopping != cheeseOpt.id,
+        button_crust_focus: selectedValueTopping == cheeseOpt.id
+        }"
+        class="button_crust"
+        (click)="onClickBbBt(cheeseOpt.opt)"
+        style="height: 3vw"
+        ><input
+          type="radio"
+          name="cheese"
+          [(ngModel)]="selectedValueTopping"
+          [value]="cheeseOpt.id"
+        />{{ cheeseOpt.opt }}</label>
+    </div>
+    <h1>เลือกขนาด</h1>
+    <div class="product_button">
+      <input type="radio" id="sizeS" name="size" />
+      <label class="size_button" for="sizeS"
+        ><img src="/assets/img/S.png"
+      /></label>
+      <input type="radio" id="sizeM" name="size" />
+      <label class="size_button" for="sizeM"
+        ><img src="/assets/img/M.png"
+      /></label>
+      <input type="radio" id="sizeL" name="size" />
+      <label class="size_button" for="sizeL"
+        ><img src="/assets/img/L.png"
+      /></label>
+    </div>
+    <button
+      class="button"
+      type="submit"
+      style="
+        height: 3vw;
+        min-height: 50;
+        background-color: #f4cfe0;
+        margin: 2.5%;
+      "
+    >
+      Order Now!!
+    </button>
+    <div class="product_button">
+      <button class="button" type="reset" style="height: 3vw; min-height: 50">
+        Reset
+      </button>
+      <button class="button" style="height: 3vw; min-height: 50">
+        Restart
+      </button>
+    </div>
+  </aside>
+  <footer>
+    <h1>String Input</h1>
+    <img src="/assets/img/Dinosor.png" />
+  </footer>
 </div>

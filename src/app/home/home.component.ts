@@ -12,27 +12,30 @@ import * as _ from 'lodash';
 export class HomeComponent implements OnInit {
   productName = '';
   className = '';
+  selectedValuePizza = 0;
+  selectedValueCrust = 0;
+  selectedValueTopping = 0;
 
-  imageButtons = [{ src: 'assets/img/Hawaiian.png', name: 'ฮาวายเอี้ยน' },
-  { src: 'assets/img/Superdelux.png', name: 'ซุปเปอร์เดอลุกซ์' },
-  { src: 'assets/img/SeafoodDelux.png', name: 'ซีฟู้ดเดอลุกซ์' }]
+  imageButtons = [{ id: 1, src: 'assets/img/Hawaiian.png', name: 'ฮาวายเอี้ยน'},
+  { id: 2, src: 'assets/img/Superdelux.png', name: 'ซุปเปอร์เดอลุกซ์'},
+  { id: 3, src: 'assets/img/SeafoodDelux.png', name: 'ซีฟู้ดเดอลุกซ์'}]
   // init product img
   imageSrc = '/assets/img/Empty.png';
 
-  imageButtonsBB = [{ src: '/assets/img/HawaiianwithCheese.png', name: 'ฮาวายเอี้ยน' },
-  { src: '/assets/img/SuperdeluxwithCheese.png', name: 'ซุปเปอร์เดอลุกซ์' },
-  { src: '/assets/img/SeafoodDeluxwithCheese.png', name: 'ซีฟู้ดเดอลุกซ์' }]
+  imageButtonsBB = [{ id: 1, src: '/assets/img/HawaiianwithCheese.png', name: 'ฮาวายเอี้ยน' },
+  { id: 2, src: '/assets/img/SuperdeluxwithCheese.png', name: 'ซุปเปอร์เดอลุกซ์' },
+  { id: 3, src: '/assets/img/SeafoodDeluxwithCheese.png', name: 'ซีฟู้ดเดอลุกซ์' }]
 
-  crustOpts = [{ opt: 'หนานุ่ม' }, { opt: 'บางกรอบ' }]
+  crustOpts = [{ id: 1, opt: 'หนานุ่ม'}, { id: 2, opt: 'บางกรอบ'}]
 
-  cheeseOpts = [{ opt: 'เพิ่มชีส' }, { opt: 'ไม่เพิ่มชีส' }]
+  cheeseOpts = [{ id: 1, opt: 'เพิ่มชีส' }, { id: 2, opt: 'ไม่เพิ่มชีส' }]
 
-  constructor(private cdr: ChangeDetectorRef,private el: ElementRef) { }
+  constructor(private cdr: ChangeDetectorRef, private el: ElementRef) { }
   ngOnInit(): void {
 
   }
 
-  onClickMenuBt(imageNameObject: any, events:any) {
+  onClickMenuBt(imageNameObject: any) {
     this.imageSrc = imageNameObject.src;
     this.productName = imageNameObject.name;
   }

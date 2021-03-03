@@ -99,6 +99,20 @@ input[type="radio"] {
   cursor: pointer;
 }
 
+.button_crust_focus{
+  font-family: "Kanit";
+  font-size: 1rem;
+  padding: 0 8%;
+  margin: 5%;
+  border-radius: 15px;
+  height: 5vw;
+  min-height: 80px;
+  background-color: #f4cfe0;
+  border-color: transparent;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
 .size_button {
   font-size: 2em;
   padding: 0 5%;
