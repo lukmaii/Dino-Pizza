@@ -14,32 +14,34 @@
         <div class="element_container">
             <img class="logo" src="/assets/img/Dino_Logo.png">
         </div>
-        <h1 style="text-align: center; font-family: tuaglom; font-size: 3em;">MENU</h1>
+        <h1>MENU</h1>
         <div class="product">
             <img class="product_img" src={{imageSrc}} style="margin-bottom: 2.5%;">
         </div>
         <div class="product_button">
-            <button *ngFor="let imageButton of imageButtons; let name = index;" (click)="onClickProductBt(imageButton)" class="button">{{imageButton.name}}</button>
+            <button *ngFor="let imageButton of imageButtons;" (click)="onClickMenuBt(imageButton,$event)" class="button_menu" type="button" >{{imageButton.name}}</button>
         </div>
-        <h1 style="text-align: center; font-family: tuaglom; font-size: 3em;">เลือกขอบ</h1>
+        <h1>เลือกขอบ</h1>
         <div class="product_button">
-            <button class="button" style="height: 3vw;">หนานุ่ม</button>
-            <button class="button" style="height: 3vw;">บางกรอบ</button>
+            <input *ngFor="let crustOpt of crustOpts;" type="radio" id={{crustOpt.opt}} name="crust">
+            <label *ngFor="let crustOpt of crustOpts;" class="button_crust" for={{crustOpt.opt}} style="height: 3vw;">{{crustOpt.opt}}</label>
         </div>
-        <h1 style="text-align: center; font-family: tuaglom; font-size: 3em;">Topping</h1>
+        <h1>Topping</h1>
         <div class="product_button">
-            <button class="button" style="height: 3vw;" (click)=" onClickBbBt('yes')">เพิ่มชีส</button>
-            <button class="button" style="height: 3vw;" (click)=" onClickBbBt('no')">ไม่เพิ่มชีส</button>
+            <button *ngFor="let cheeseOpt of cheeseOpts;" class="button_topping" type="button" style="height: 3vw;" (click)=" onClickBbBt(cheeseOpt.opt)">{{cheeseOpt.opt}}</button>
         </div>
-        <h1 style="text-align: center; font-family: tuaglom; font-size: 3em;">เลือกขนาด</h1>
+        <h1>เลือกขนาด</h1>
         <div class="product_button">
-            <button class="size_button">S</button>
-            <button class="size_button">M</button>
-            <button class="size_button">L</button>
+                <input type="radio" id="sizeS" name="size">
+                <label class="size_button" for="sizeS"><img src="/assets/img/S.png"/></label>
+                <input type="radio" id="sizeM" name="size">
+                <label class="size_button" for="sizeM"><img src="/assets/img/M.png"/></label>
+                <input type="radio" id="sizeL" name="size">
+                <label class="size_button" for="sizeL"><img src="/assets/img/L.png"/></label>
         </div>
-        <button class="button" style="height: 3vw; min-height: 50; background-color: #F4CFE0; margin: 2.5%;">Order Now!!</button>
+        <button class="button" type="submit" style="height: 3vw; min-height: 50; background-color: #F4CFE0; margin: 2.5%;">Order Now!!</button>
         <div class="product_button">
-            <button class="button" style="height: 3vw; min-height: 50;">Reset</button>
+            <button class="button" type="reset" style="height: 3vw; min-height: 50;">Reset</button>
             <button class="button" style="height: 3vw; min-height: 50;">Restart</button>
         </div>
     </aside>
