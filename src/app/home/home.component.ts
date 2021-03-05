@@ -16,9 +16,9 @@ export class HomeComponent implements OnInit {
   selectedValueCrust = 0;
   selectedValueTopping = 0;
 
-  imageButtons = [{ id: 1, src: 'assets/img/Hawaiian.png', name: 'ฮาวายเอี้ยน'},
-  { id: 2, src: 'assets/img/Superdelux.png', name: 'ซุปเปอร์เดอลุกซ์'},
-  { id: 3, src: 'assets/img/SeafoodDelux.png', name: 'ซีฟู้ดเดอลุกซ์'}]
+  imageButtons = [{ id: 1, src: 'assets/img/Hawaiian.png', name: 'ฮาวายเอียน' },
+  { id: 2, src: 'assets/img/Superdelux.png', name: 'ซูปเปอร์เดอลุกซ์' },
+  { id: 3, src: 'assets/img/SeafoodDelux.png', name: 'ซีฟู้ดคอกเทล' }]
   // init product img
   imageSrc = '/assets/img/Empty.png';
 
@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
   { id: 2, src: '/assets/img/SuperdeluxwithCheese.png', name: 'ซุปเปอร์เดอลุกซ์' },
   { id: 3, src: '/assets/img/SeafoodDeluxwithCheese.png', name: 'ซีฟู้ดเดอลุกซ์' }]
 
-  crustOpts = [{ id: 1, opt: 'หนานุ่ม'}, { id: 2, opt: 'บางกรอบ'}]
+  crustOpts = [{ id: 1, opt: 'หนานุ่ม' }, { id: 2, opt: 'บางกรอบ' }]
 
   cheeseOpts = [{ id: 1, opt: 'เพิ่มชีส' }, { id: 2, opt: 'ไม่เพิ่มชีส' }]
 
@@ -90,7 +90,8 @@ export class HomeComponent implements OnInit {
             new go.Binding('fill', 'color') //fill color from nodedata.color
           ),
           $(go.TextBlock, { textAlign: "center" },
-            new go.Binding('text')) // binding to get TextBlock.text from nodedata.text
+            new go.Binding('text'),
+            new go.Binding('stroke', 'txtStroke')) // binding to get TextBlock.text from nodedata.text
         ),
       );
 
@@ -117,7 +118,8 @@ export class HomeComponent implements OnInit {
           {
             fill: "maroon",
             stroke: null,
-          }),
+          },
+          new go.Binding("fill", "color")),
         $(go.Shape, "Circle", { fill: null, desiredSize: new go.Size(90, 90), strokeWidth: 2, stroke: "whitesmoke" }),
         $(go.TextBlock, new go.Binding("text"),
           {
@@ -129,12 +131,14 @@ export class HomeComponent implements OnInit {
 
     dia.linkTemplate =
       $(go.Link, { routing: go.Link.AvoidsNodes, corner: 10, curve: go.Link.JumpOver },
-        new go.Binding("fromSpot", "fromSpot", go.Spot.parse),
-        new go.Binding("toSpot", "toSpot", go.Spot.parse),
         new go.Binding("points"),
-        $(go.Shape),     // the link shape
+        $(go.Shape,      // the link shape
+          new go.Binding('stroke'),
+          new go.Binding('strokeWidth')),
         $(go.Shape,      // the arrowhead
-          { toArrow: 'Standard' }),
+          { toArrow: 'Standard' },
+          new go.Binding('fill'),
+          new go.Binding('stroke', 'arrStroke')),
         $(go.TextBlock, 'transition',   // this is a Link label
           { segmentIndex: NaN, background: 'whitesmoke', textAlign: "center" },
           new go.Binding('text'),
@@ -207,20 +211,20 @@ export class HomeComponent implements OnInit {
     //from เล็ก
     { key: -35, from: 8, to: 0, segmentFraction: 0.909, points: [1195, 175, 1220, 175, 1220, 650, 75, 650, 75, 395], text: 'Cancle' },
     { key: -36, from: 8, to: 8, segmentFraction: 0.5, points: [1175, 105, 1175, 70, 1125, 70, 1125, 105], segmentOffset: new go.Point(0, 30), text: 'ฮาวายเอียน, บางกรอบ,\nซีฟู้ดคอกเทล, หนานุ่ม,\nซูปเปอร์เดอลุกซ์,\nเพิ่มชีส, ไม่เพิ่มชีส, เล็ก,\nกลาง, ใหญ่, Complete' },
-    { key: -37, from: 8, to: 12, segmentFraction: 0.7, points: [1200, 150, 1355, 325], text: 'Comfirm' },
+    { key: -37, from: 8, to: 12, segmentFraction: 0.7, points: [1200, 150, 1355, 325], text: 'Confirm' },
     //from กลาง
     { key: -38, from: 9, to: 0, segmentFraction: 0.898, points: [1195, 375, 1210, 375, 1210, 650, 75, 650, 75, 395], text: 'Cancle' },
     { key: -39, from: 9, to: 9, segmentFraction: 0.55, points: [1175, 305, 1175, 270, 1125, 270, 1125, 305], segmentOffset: new go.Point(0, 30), text: 'ฮาวายเอียน, บางกรอบ,\nซีฟู้ดคอกเทล, หนานุ่ม,\nซูปเปอร์เดอลุกซ์,\nเพิ่มชีส, ไม่เพิ่มชีส, เล็ก,\nกลาง, ใหญ่, Complete' },
-    { key: -40, from: 9, to: 12, segmentFraction: 0.7, points: [1200, 350, 1350, 350], text: 'Comfirm' },
+    { key: -40, from: 9, to: 12, segmentFraction: 0.7, points: [1200, 350, 1350, 350], text: 'Confirm' },
     //from ใหญ่
     { key: -41, from: 10, to: 0, segmentFraction: 0.878, points: [1150, 600, 1150, 650, 75, 650, 75, 395], text: 'Cancle' },
     { key: -42, from: 10, to: 10, segmentFraction: 0.55, points: [1175, 505, 1175, 470, 1125, 470, 1125, 505], segmentOffset: new go.Point(0, 30), text: 'ฮาวายเอียน, บางกรอบ,\nซีฟู้ดคอกเทล, หนานุ่ม,\nซูปเปอร์เดอลุกซ์,\nเพิ่มชีส, ไม่เพิ่มชีส, เล็ก,\nกลาง, ใหญ่, Complete' },
-    { key: -43, from: 10, to: 12, segmentFraction: 0.7, points: [1200, 550, 1355, 375], text: 'Comfirm' },
+    { key: -43, from: 10, to: 12, segmentFraction: 0.7, points: [1200, 550, 1355, 375], text: 'Confirm' },
     //from finish
     { key: -44, from: 12, to: 0, segmentFraction: 0.9, points: [1400, 400, 1400, 660, 25, 660, 25, 395], text: 'Complete' },
     { key: -45, from: 12, to: 11, segmentFraction: 0.4, points: [1400, 300, 1400, 200], text: 'ฮาวายเอียน, ซีฟู้ดคอกเทล,\nซูปเปอร์เดอลุกซ์, หนานุ่ม,\nบางกรอบ, เพิ่มชีส, เล็ก,\nไม่เพิ่มชีส, กลาง, ใหญ่,\nConfirm Cancle' },
     //from trap
-    { key: -46, from: 11, to: 0, segmentFraction: 0.915, points: [1450, 150, 1470, 150, 1470, 660, 25, 660, 25, 395], text: 'Complate' },
+    { key: -46, from: 11, to: 0, segmentFraction: 0.915, points: [1450, 150, 1470, 150, 1470, 660, 25, 660, 25, 395], text: 'Complete' },
     { key: -47, from: 11, to: 11, segmentFraction: 0.5, points: [1425, 105, 1425, 70, 1375, 70, 1375, 105], segmentOffset: new go.Point(0, 30), text: 'ฮาวายเอียน, ซีฟู้ดคอกเทล,\nซูปเปอร์เดอลุกซ์, หนานุ่ม,\nบางกรอบ, เพิ่มชีส, เล็ก,\nไม่เพิ่มชีส, กลาง, ใหญ่,\nConfirm Cancle' },
   ];
 
@@ -251,10 +255,33 @@ export class HomeComponent implements OnInit {
     });
   } // end ngAfterViewInit
 
-  public changeData(index: number) {
-    const node = _.cloneDeep(this.diagramNodeData[index]);
-    node.color = '#52ce60';
-    this.diagramNodeData[index] = _.cloneDeep(node);
+  public currState = 0;
+
+  public selectedPath(buttonName: string) {
+
+    for (let j = 0; j < this.diagramLinkData.length; j++) {
+      
+      if (this.diagramLinkData[j].from == this.currState && this.diagramLinkData[j].text.includes(buttonName)) {
+
+        //change link data
+        const link = _.cloneDeep(this.diagramLinkData[j]);
+        link.stroke = '#52ce60';
+        link.strokeWidth = 3;
+        link.fill = '#52ce60';
+        link.arrStroke = '#52ce60' ;
+        this.diagramLinkData[j] = _.cloneDeep(link);
+
+        //change node data
+        const node = _.cloneDeep(this.diagramNodeData[this.diagramLinkData[j].to]);
+        node.color = '#52ce60';
+        node.txtStroke = 'whitesmoke';
+        this.diagramNodeData[this.diagramLinkData[j].to] = _.cloneDeep(node);
+
+        this.currState = this.diagramLinkData[j].to;
+        break;
+
+      }
+    }
   }
 
 }
