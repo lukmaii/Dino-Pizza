@@ -11,20 +11,25 @@ import * as _ from 'lodash';
 })
 export class HomeComponent implements OnInit {
   productName = '';
-  className = '';
-  selectedValuePizza = 0;
-  selectedValueCrust = 0;
-  selectedValueTopping = 0;
+  clicked = [false, false, false, false];
+  selectedValue = [0, 0, 0, 0];
+  crustOpt = '';
+  size = '';
+  cheeseOpt = '';
 
-  imageButtons = [{ id: 1, src: 'assets/img/Hawaiian.png', name: 'ฮาวายเอียน' },
+  pizza = [{ id: 1, src: 'assets/img/Hawaiian.png', name: 'ฮาวายเอียน' },
   { id: 2, src: 'assets/img/Superdelux.png', name: 'ซูปเปอร์เดอลุกซ์' },
   { id: 3, src: 'assets/img/SeafoodDelux.png', name: 'ซีฟู้ดคอกเทล' }]
   // init product img
   imageSrc = '/assets/img/Empty.png';
 
-  imageButtonsBB = [{ id: 1, src: '/assets/img/HawaiianwithCheese.png', name: 'ฮาวายเอี้ยน' },
-  { id: 2, src: '/assets/img/SuperdeluxwithCheese.png', name: 'ซุปเปอร์เดอลุกซ์' },
-  { id: 3, src: '/assets/img/SeafoodDeluxwithCheese.png', name: 'ซีฟู้ดเดอลุกซ์' }]
+  pizzaCheeses = [{ id: 1, src: '/assets/img/HawaiianwithCheese.png', name: 'ฮาวายเอียน' },
+  { id: 2, src: '/assets/img/SuperdeluxwithCheese.png', name: 'ซูปเปอร์เดอลุกซ์' },
+  { id: 3, src: '/assets/img/SeafoodDeluxwithCheese.png', name: 'ซีฟู้ดคอกเทล' }]
+
+  pizzaSizes = [{ id: 1, src: '/assets/img/S.png', name: 'เล็ก' },
+  { id: 2, src: '/assets/img/M.png', name: 'กลาง' },
+  { id: 3, src: '/assets/img/L.png', name: 'ใหญ่' }]
 
   crustOpts = [{ id: 1, opt: 'หนานุ่ม' }, { id: 2, opt: 'บางกรอบ' }]
 
@@ -38,23 +43,47 @@ export class HomeComponent implements OnInit {
   onClickMenuBt(imageNameObject: any) {
     this.imageSrc = imageNameObject.src;
     this.productName = imageNameObject.name;
+    this.clicked[0] = true;
   }
 
-  onClickBbBt(opt: string) {
+  onClickCrust(opt: string) {
+    this.crustOpt = opt;
+    this.clicked[1] = true;
+  }
+
+  onClickTopping(opt: string) {
+    this.cheeseOpt = opt;
     if (opt === 'เพิ่มชีส') {
-      this.imageButtonsBB.forEach(obj => {
+      this.pizzaCheeses.forEach(obj => {
         if (obj.name === this.productName) {
-          this.imageSrc = obj.src
+          console.log(obj.name);
+          this.imageSrc = obj.src;
         }
       })
     }
-    else {
-      this.imageButtons.forEach(obj => {
-        if (obj.name === this.productName) {
-          this.imageSrc = obj.src
-        }
-      })
-    }
+    // else {
+    //   this.pizzaCheeses.forEach(obj => {
+    //     if (obj.name === this.productName) {
+    //       this.imageSrc = obj.src
+    //     }
+    //   })
+    // }
+    this.clicked[2] = true;
+  }
+
+  onClickSize(size: string) {
+    this.size = size;
+    this.clicked[3] = true;
+  }
+
+  onClickCancle() {
+    this.clicked = [false, false, false, false];
+    this.selectedValue = [0, 0, 0, 0];
+    this.imageSrc = '/assets/img/Empty.png';
+    this.productName = '';
+    this.crustOpt = '';
+    this.cheeseOpt = '';
+    this.size = '';
   }
 
   //--------------------- dfa ---------------------//
@@ -260,7 +289,7 @@ export class HomeComponent implements OnInit {
   public selectedPath(buttonName: string) {
 
     for (let j = 0; j < this.diagramLinkData.length; j++) {
-      
+
       if (this.diagramLinkData[j].from == this.currState && this.diagramLinkData[j].text.includes(buttonName)) {
 
         //change link data
@@ -268,7 +297,7 @@ export class HomeComponent implements OnInit {
         link.stroke = '#52ce60';
         link.strokeWidth = 3;
         link.fill = '#52ce60';
-        link.arrStroke = '#52ce60' ;
+        link.arrStroke = '#52ce60';
         this.diagramLinkData[j] = _.cloneDeep(link);
 
         //change node data

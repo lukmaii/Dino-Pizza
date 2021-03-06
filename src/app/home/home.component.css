@@ -82,14 +82,12 @@ input[type="radio"] {
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
 }
 
-.button_menu,
-.button_crust,
-.button_topping,
-.button {
+.button_crust,.button{
   font-family: "Kanit";
   font-size: 1rem;
-  padding: 0 8%;
+  padding: 0 10%;
   margin: 5%;
+  text-align: center;
   border-radius: 15px;
   height: 5vw;
   min-height: 80px;
@@ -102,8 +100,9 @@ input[type="radio"] {
 .button_crust_focus{
   font-family: "Kanit";
   font-size: 1rem;
-  padding: 0 8%;
+  padding: 0 10%;
   margin: 5%;
+  text-align: center;
   border-radius: 15px;
   height: 5vw;
   min-height: 80px;
@@ -130,12 +129,25 @@ input[type="radio"] {
   align-items: center;
 }
 
-.size_button > img {
-  width: 100%;
+.size_button_focus {
+  font-size: 2em;
+  padding: 0 5%;
+  margin: 5% auto;
+  border-radius: 50%;
+  width: 6vw;
+  height: 6vw;
+  min-height: 120px;
+  min-width: 120px;
+  background-color: transparent;
+  border-color: transparent;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  filter: none;
+  align-items: center;
 }
 
-input[type=radio]:checked+label {
-  filter: none;
+.size_button > img, .size_button_focus > img {
+  width: 100%;
 }
 
 label {
@@ -168,6 +180,11 @@ footer img {
   width: 50%;
   min-width: 200px;
   margin: auto 0 auto auto;
+}
+
+.stringArea > h2{
+  margin: 5% 5%;
+  font-family: 'kanit';
 }
 
 /* Resposive  */

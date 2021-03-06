@@ -23,25 +23,24 @@
         style="margin-bottom: 2.5%"
       />
     </div>
-    <div class="product_button">
+    <div class="product_button" >
       <label
-        *ngFor="let imageButton of imageButtons"
+        *ngFor="let imgPizza of pizza"
         [ngClass]="{
-            button_crust: selectedValuePizza != imageButton.id,
-            button_crust_focus: selectedValuePizza == imageButton.id
+            button_crust: selectedValue[0] != imgPizza.id,
+            button_crust_focus: selectedValue[0] == imgPizza.id
             }"
-        (click)="onClickMenuBt(imageButton)"
-        class="button_menu"
         type="button"
       >
       <input
           type="radio"
           name="pizza"
-          [(ngModel)]="selectedValuePizza"
-          [value]="imageButton.id"
-          (click)="selectedPath(imageButton.name)"
+          [(ngModel)]="selectedValue[0]"
+          [value]="imgPizza.id"
+          (click)="selectedPath(imgPizza.name); onClickMenuBt(imgPizza);"
+          [disabled]="clicked[0]"
         />
-        {{ imageButton.name }}
+        {{ imgPizza.name }}
       </label>
     </div>
     <h1>เลือกขอบ</h1>
@@ -49,17 +48,17 @@
       <label
         *ngFor="let crustOpt of crustOpts"
         [ngClass]="{
-        button_crust: selectedValueCrust != crustOpt.id,
-        button_crust_focus: selectedValueCrust == crustOpt.id
+        button_crust: selectedValue[1] != crustOpt.id,
+        button_crust_focus: selectedValue[1] == crustOpt.id
         }"
-        class="button_crust"
         style="height: 3vw"
         ><input
           type="radio"
           name="crust"
-          [(ngModel)]="selectedValueCrust"
+          [(ngModel)]="selectedValue[1]"
           [value]="crustOpt.id"
-          (click)="selectedPath(crustOpt.opt)"
+          (click)="selectedPath(crustOpt.opt); onClickCrust(crustOpt.opt);"
+          [disabled]="clicked[1]"
         />{{ crustOpt.opt }}</label
       >
     </div>
@@ -68,34 +67,36 @@
         <label
         *ngFor="let cheeseOpt of cheeseOpts"
         [ngClass]="{
-        button_crust: selectedValueTopping != cheeseOpt.id,
-        button_crust_focus: selectedValueTopping == cheeseOpt.id
+        button_crust: selectedValue[2] != cheeseOpt.id,
+        button_crust_focus: selectedValue[2] == cheeseOpt.id
         }"
-        class="button_crust"
-        (click)="onClickBbBt(cheeseOpt.opt)"
         style="height: 3vw"
         ><input
           type="radio"
           name="cheese"
-          [(ngModel)]="selectedValueTopping"
+          [(ngModel)]="selectedValue[2]"
           [value]="cheeseOpt.id"
-          (click)="selectedPath(cheeseOpt.opt)"
+          (click)="selectedPath(cheeseOpt.opt); onClickTopping(cheeseOpt.opt);"
+          [disabled]="clicked[2]"
         />{{ cheeseOpt.opt }}</label>
     </div>
     <h1>เลือกขนาด</h1>
     <div class="product_button">
-      <input type="radio" id="sizeS" name="size" (click)="selectedPath('เล็ก')"/>
-      <label class="size_button" for="sizeS"
-        ><img src="/assets/img/S.png"
-      /></label>
-      <input type="radio" id="sizeM" name="size" (click)="selectedPath('กลาง')"/>
-      <label class="size_button" for="sizeM"
-        ><img src="/assets/img/M.png"
-      /></label>
-      <input type="radio" id="sizeL" name="size" (click)="selectedPath('ใหญ่')"/>
-      <label class="size_button" for="sizeL"
-        ><img src="/assets/img/L.png"
-      /></label>
+      <label
+        *ngFor="let pizzaSize of pizzaSizes"
+        [ngClass]="{
+        size_button: selectedValue[3] != pizzaSize.id,
+        size_button_focus: selectedValue[3] == pizzaSize.id
+        }"
+        ><input
+          type="radio"
+          name="size"
+          [(ngModel)]="selectedValue[3]"
+          [value]="pizzaSize.id"
+          (click)="selectedPath(pizzaSize.name); onClickSize(pizzaSize.name);"
+          [disabled]="clicked[3]"
+        /><img [src]="pizzaSize.src"
+        /></label>
     </div>
     <button
       class="button"
@@ -111,7 +112,7 @@
       Order Now!!
     </button>
     <div class="product_button">
-      <button class="button" type="reset" style="height: 3vw; min-height: 50" (click)="selectedPath('Cancle')">
+      <button class="button" type="reset" style="height: 3vw; min-height: 50" (click)="selectedPath('Cancle'); onClickCancle();">
         Cancle
       </button>
       <button class="button" style="height: 3vw; min-height: 50" (click)="selectedPath('Complete')">
@@ -120,7 +121,10 @@
     </div>
   </aside>
   <footer>
-    <h1>String Input</h1>
+    <div class="stringArea">
+      <h1>String Input</h1>
+      <h2>{{productName}}  {{crustOpt}}  {{cheeseOpt}}  {{size}}</h2>
+    </div>
     <img src="/assets/img/Dinosor.png" />
   </footer>
 </div>
