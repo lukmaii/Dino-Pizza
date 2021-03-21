@@ -72,6 +72,16 @@
   max-width: 100%;
 }
 
+.menuName {
+  font-family: 'kanit';
+  font-size: 20px;
+  margin: 5% 0%;
+}
+
+.menuName > p {
+  text-align: center;
+}
+
 input[type="radio"] {
   display: none;
 }
@@ -88,12 +98,16 @@ input[type="radio"] {
   margin: 5%;
   text-align: center;
   border-radius: 15px;
-  height: 5vw;
+  height: 3vw;
   min-height: 80px;
   background-color: #f8f6cf;
   border-color: transparent;
   transition-duration: 0.4s;
   cursor: pointer;
+}
+
+.button_crust:hover{
+  background-color: #f1e1e9;
 }
 
 .button_crust_focus{
@@ -103,12 +117,27 @@ input[type="radio"] {
   margin: 5%;
   text-align: center;
   border-radius: 15px;
-  height: 5vw;
+  height: 3vw;
   min-height: 80px;
   background-color: #f4cfe0;
   border-color: transparent;
   transition-duration: 0.4s;
   cursor: pointer;
+}
+
+.button_crust_disable{
+  font-family: "Kanit";
+  font-size: 1rem;
+  padding: 0 10%;
+  margin: 5%;
+  text-align: center;
+  border-radius: 15px;
+  height: 3vw;
+  min-height: 80px;
+  background-color: #DCDCDC;
+  border-color: transparent;
+  transition-duration: 0.4s;
+  cursor: context-menu;
 }
 
 .size_button {
@@ -126,6 +155,10 @@ input[type="radio"] {
   cursor: pointer;
   filter: grayscale(100%);
   align-items: center;
+}
+
+.size_button:hover{
+  filter: grayscale(50%);
 }
 
 .size_button_focus {
@@ -161,8 +194,9 @@ footer {
   grid-area: footer;
   margin: 1%;
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 10fr 2fr;
   bottom: 1%;
+  overflow-y: auto;
   background-color: #f4cfe0;
   border-radius: 15px;
   z-index: 2;
@@ -177,13 +211,21 @@ footer h1 {
 
 footer img {
   width: 50%;
+  position: sticky;
   min-width: 200px;
-  margin: auto 0 auto auto;
+  margin: 0 0 auto auto;
 }
 
-.stringArea > h2{
-  margin: 5% 5%;
+.inputStringArea > p{
+  display: inline;
+  margin-top: 2%;
+  margin-right: 1%;
   font-family: 'kanit';
+  font-size: 18px;
+}
+
+.inputStringArea{
+  margin: 0 0 0 2%;
 }
 
 /* Resposive  */

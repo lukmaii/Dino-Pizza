@@ -16,15 +16,16 @@ export class HomeComponent implements OnInit {
   crustOpt = '';
   size = '';
   cheeseOpt = '';
+  inputStrings = [""];
+  checkPizza = false;
 
   pizza = [{ id: 1, src: 'assets/img/Hawaiian.png', name: 'ฮาวายเอียน' },
-  { id: 2, src: 'assets/img/Superdelux.png', name: 'ดับเบิ้ลชีส' }]
+  { id: 2, src: 'assets/img/Empty.png', name: 'ดับเบิ้ลชีส' }]
   // init product img
   imageSrc = '/assets/img/Empty.png';
 
   pizzaCheeses = [{ id: 1, src: '/assets/img/HawaiianwithCheese.png', name: 'ฮาวายเอียน' },
-  { id: 2, src: '/assets/img/SuperdeluxwithCheese.png', name: 'ซูปเปอร์เดอลุกซ์' },
-  { id: 3, src: '/assets/img/SeafoodDeluxwithCheese.png', name: 'ซีฟู้ดคอกเทล' }]
+  { id: 2, src: '/assets/img/Empty.png', name: 'ดับเบิ้ลชีส' }]
 
   pizzaSizes = [{ id: 1, src: '/assets/img/M.png', name: 'กลาง' },
   { id: 2, src: '/assets/img/L.png', name: 'ใหญ่' }]
@@ -37,19 +38,42 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  checkOnClick(){
+    if(this.clicked[0]||this.clicked[1]||this.clicked[2]||this.clicked[3]){
+      return false;
+    }
+    return true;
+  }
+
   onClickMenuBt(imageNameObject: any) {
-    this.imageSrc = imageNameObject.src;
-    this.productName = imageNameObject.name;
+    if (this.clicked[1] === false) {
+      this.imageSrc = imageNameObject.src;
+      this.productName = imageNameObject.name;
+    }
+    if (this.productName === 'ดับเบิ้ลชีส'){ this.checkPizza=true;}
+    else { this.checkPizza=false;}
+    this.inputStrings.push(this.productName);
     this.clicked[0] = true;
   }
 
   onClickCrust(opt: string) {
-    this.crustOpt = opt;
+    if (this.clicked[2] === false){
+      this.crustOpt = opt;
+    }
+    this.inputStrings.push(this.crustOpt);
     this.clicked[1] = true;
   }
 
+  onClickSize(size: string) {
+    if (this.clicked[3] === false){
+      this.size = size;
+    }
+    this.inputStrings.push(this.size);
+    this.clicked[2] = true;
+  }
+
   onClickTopping(opt: string) {
-    this.cheeseOpt = opt;
+    if(!this.checkPizza){this.cheeseOpt = opt;}
     if (opt === 'เพิ่มชีส') {
       this.pizzaCheeses.forEach(obj => {
         if (obj.name === this.productName) {
@@ -58,22 +82,19 @@ export class HomeComponent implements OnInit {
         }
       })
     }
-    // else {
-    //   this.pizzaCheeses.forEach(obj => {
-    //     if (obj.name === this.productName) {
-    //       this.imageSrc = obj.src
-    //     }
-    //   })
-    // }
-    this.clicked[2] = true;
-  }
-
-  onClickSize(size: string) {
-    this.size = size;
+    else{
+      this.pizza.forEach(obj => {
+        if (obj.name === this.productName) {
+          console.log(obj.name);
+          this.imageSrc = obj.src;
+        }
+      })
+    }
+    this.inputStrings.push(opt);
     this.clicked[3] = true;
   }
 
-  onClickCancle() {
+  onClickCancel(opts:string) {
     this.clicked = [false, false, false, false];
     this.selectedValue = [0, 0, 0, 0];
     this.imageSrc = '/assets/img/Empty.png';
@@ -81,8 +102,13 @@ export class HomeComponent implements OnInit {
     this.crustOpt = '';
     this.cheeseOpt = '';
     this.size = '';
+    if(opts === 'cancel'){
+      this.inputStrings.push('Cancel');
+    }
+    else{
+      this.inputStrings=['']
+    }
   }
-
 
   //--------------------- dfa ---------------------//
 

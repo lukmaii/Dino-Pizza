@@ -23,6 +23,10 @@
         style="margin-bottom: 2.5%"
       />
     </div>
+    <div class="menuName">
+      <p *ngIf="checkOnClick(); ngElse showMenu" >พิซซ่าหน้าอะไรเอ๋ย</p>
+      <p #showMenu>{{productName}}{{crustOpt}}{{size}}{{cheeseOpt}}</p>
+    </div>
     <div class="product_button" >
       <label
         *ngFor="let imgPizza of pizza"
@@ -38,7 +42,6 @@
           [(ngModel)]="selectedValue[0]"
           [value]="imgPizza.id"
           (click)="selectedPath(imgPizza.name); onClickMenuBt(imgPizza);"
-          [disabled]="clicked[0]"
         />
         {{ imgPizza.name }}
       </label>
@@ -51,14 +54,12 @@
         button_crust: selectedValue[1] != crustOpt.id,
         button_crust_focus: selectedValue[1] == crustOpt.id
         }"
-        style="height: 3vw"
         ><input
           type="radio"
           name="crust"
           [(ngModel)]="selectedValue[1]"
           [value]="crustOpt.id"
           (click)="selectedPath(crustOpt.opt); onClickCrust(crustOpt.opt);"
-          [disabled]="clicked[1]"
         />{{ crustOpt.opt }}</label
       >
     </div>
@@ -76,7 +77,6 @@
           [(ngModel)]="selectedValue[3]"
           [value]="pizzaSize.id"
           (click)="selectedPath(pizzaSize.name); onClickSize(pizzaSize.name);"
-          [disabled]="clicked[3]"
         /><img [src]="pizzaSize.src"
         /></label>
     </div>
@@ -86,36 +86,33 @@
         *ngFor="let cheeseOpt of cheeseOpts"
         [ngClass]="{
         button_crust: selectedValue[2] != cheeseOpt.id,
-        button_crust_focus: selectedValue[2] == cheeseOpt.id
+        button_crust_focus: selectedValue[2] == cheeseOpt.id,
+        button_crust_disable: checkPizza
         }"
-        style="height: 3vw"
         ><input
           type="radio"
           name="cheese"
           [(ngModel)]="selectedValue[2]"
           [value]="cheeseOpt.id"
           (click)="selectedPath(cheeseOpt.opt); onClickTopping(cheeseOpt.opt);"
-          [disabled]="clicked[2]"
         />{{ cheeseOpt.opt }}</label>
     </div>
     <button
       class="button"
       type="submit"
       style="
-        height: 3vw;
-        min-height: 50;
         background-color: #f4cfe0;
         margin: 2.5%;
       "
-      (click)="selectedPath('Confirm')"
+      (click)="selectedPath('Confirm');"
     >
       Order Now!!
     </button>
     <div class="product_button">
-      <button class="button" type="reset" style="height: 3vw; min-height: 50" (click)="selectedPath('Cancel'); onClickCancle();">
+      <button class="button" type="reset" (click)="selectedPath('Cancel'); onClickCancel('cancel');">
         Cancle
       </button>
-      <button class="button" style="height: 3vw; min-height: 50" (click)="selectedPath('Complete'); resetPath();">
+      <button class="button" (click)="selectedPath('Complete'); resetPath(); onClickCancel('Complete');">
         Complete
       </button>
     </div>
@@ -123,7 +120,9 @@
   <footer>
     <div class="stringArea">
       <h1>String Input</h1>
-      <h2>{{productName}}  {{crustOpt}}  {{cheeseOpt}}  {{size}}</h2>
+      <div class="inputStringArea">
+        <p *ngFor="let inputString of inputStrings">{{inputString}}</p>
+      </div>
     </div>
     <img src="/assets/img/Dinosor.png" />
   </footer>
