@@ -62,24 +62,6 @@
         />{{ crustOpt.opt }}</label
       >
     </div>
-    <h1>Topping</h1>
-    <div class="product_button">
-        <label
-        *ngFor="let cheeseOpt of cheeseOpts"
-        [ngClass]="{
-        button_crust: selectedValue[2] != cheeseOpt.id,
-        button_crust_focus: selectedValue[2] == cheeseOpt.id
-        }"
-        style="height: 3vw"
-        ><input
-          type="radio"
-          name="cheese"
-          [(ngModel)]="selectedValue[2]"
-          [value]="cheeseOpt.id"
-          (click)="selectedPath(cheeseOpt.opt); onClickTopping(cheeseOpt.opt);"
-          [disabled]="clicked[2]"
-        />{{ cheeseOpt.opt }}</label>
-    </div>
     <h1>เลือกขนาด</h1>
     <div class="product_button">
       <label
@@ -98,6 +80,24 @@
         /><img [src]="pizzaSize.src"
         /></label>
     </div>
+    <h1>Topping</h1>
+    <div class="product_button">
+        <label
+        *ngFor="let cheeseOpt of cheeseOpts"
+        [ngClass]="{
+        button_crust: selectedValue[2] != cheeseOpt.id,
+        button_crust_focus: selectedValue[2] == cheeseOpt.id
+        }"
+        style="height: 3vw"
+        ><input
+          type="radio"
+          name="cheese"
+          [(ngModel)]="selectedValue[2]"
+          [value]="cheeseOpt.id"
+          (click)="selectedPath(cheeseOpt.opt); onClickTopping(cheeseOpt.opt);"
+          [disabled]="clicked[2]"
+        />{{ cheeseOpt.opt }}</label>
+    </div>
     <button
       class="button"
       type="submit"
@@ -112,10 +112,10 @@
       Order Now!!
     </button>
     <div class="product_button">
-      <button class="button" type="reset" style="height: 3vw; min-height: 50" (click)="selectedPath('Cancle'); onClickCancle();">
+      <button class="button" type="reset" style="height: 3vw; min-height: 50" (click)="selectedPath('Cancel'); onClickCancle();">
         Cancle
       </button>
-      <button class="button" style="height: 3vw; min-height: 50" (click)="selectedPath('Complete')">
+      <button class="button" style="height: 3vw; min-height: 50" (click)="selectedPath('Complete'); resetPath();">
         Complete
       </button>
     </div>
