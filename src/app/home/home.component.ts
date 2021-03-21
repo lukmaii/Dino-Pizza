@@ -123,6 +123,7 @@ export class HomeComponent implements OnInit {
     const $ = go.GraphObject.make;
     const dia = $(go.Diagram, {
       "toolManager.mouseWheelBehavior": go.ToolManager.WheelZoom, // have mouse wheel events zoom in and out instead of scroll up and down
+      initialAutoScale: go.Diagram.Uniform,
       model: $(go.GraphLinksModel,
         {
           linkKeyProperty: 'key' // IMPORTANT! must be defined for merges and data sync when using GraphLinksModel
