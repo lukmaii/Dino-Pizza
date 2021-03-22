@@ -97,8 +97,6 @@
           (click)="selectedPath(cheeseOpt.opt); onClickTopping(cheeseOpt.opt);"
         />{{ cheeseOpt.opt }}</label>
     </div>
-    <div *ngIf="clicked[2]; then open; else select;"></div>
-    <ng-template #select>
       <button
       class="button"
       type="submit"
@@ -106,24 +104,10 @@
         background-color: #f4cfe0;
         margin: 2.5%;
       "
-        (click)="selectedPath('Confirm')"
+        (click)="clicked[2] ? [selectedPath('Confirm'), openModal()] : selectedPath('Confirm')"
       >
         Order Now!!
       </button>
-    </ng-template>
-    <ng-template #open>
-        <button
-      class="button"
-      type="submit"
-      style="
-        background-color: #f4cfe0;
-        margin: 2.5%;
-      "
-      (click)="selectedPath('Confirm'); openModal()"
-      >
-        Order Now!!
-      </button>
-    </ng-template>
     <div class="product_button">
       <button class="button" type="reset" (click)="selectedPath('Cancel'); onClickCancel('cancel');">
         Cancel
