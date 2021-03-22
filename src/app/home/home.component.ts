@@ -168,12 +168,14 @@ export class HomeComponent implements OnInit {
           {
             fill: "#52ce60", /* green */
             stroke: null,
-          }),
+          },
+          new go.Binding('fill', 'color')),
         $(go.TextBlock, new go.Binding("text"),
           {
             font: "bold 16pt helvetica, bold arial, sans-serif",
             stroke: "whitesmoke"
-          })
+          },
+          new go.Binding('stroke', 'txtStroke'))
       )
     );
 
