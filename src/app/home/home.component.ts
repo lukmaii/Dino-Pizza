@@ -193,7 +193,8 @@ export class HomeComponent implements OnInit {
           {
             font: "bold 18pt helvetica, bold arial, sans-serif",
             stroke: "whitesmoke"
-          })
+          },
+          new go.Binding('stroke', 'txtStroke'))
       )
     );
 
