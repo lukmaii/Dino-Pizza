@@ -2,6 +2,9 @@ import { ChangeDetectorRef, Component, OnInit, ViewChild, ViewEncapsulation, Ele
 import * as go from 'gojs';
 import { DiagramComponent } from 'gojs-angular';
 import * as _ from 'lodash';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
+import { ModalComponent } from '../modal/modal.component';
+import { EventEmitterService } from '../event-emitter.service';
 
 @Component({
   selector: 'app-home',
@@ -34,8 +37,15 @@ export class HomeComponent implements OnInit {
 
   cheeseOpts = [{ id: 1, opt: 'เพิ่มชีส' }, { id: 2, opt: 'ไม่เพิ่มชีส' }]
 
-  constructor(private cdr: ChangeDetectorRef, private el: ElementRef) { }
+  constructor(private cdr: ChangeDetectorRef, private el: ElementRef, private modal: NgbModal, private eventEmitterService: EventEmitterService) { }
   ngOnInit(): void {
+    if (this.eventEmitterService.subsVar==undefined) {
+      this.eventEmitterService.subsVar = this.eventEmitterService.invokeHomeComponentFunction.subscribe((value: string) => {this.selectedPath(value); this.resetPath();})
+    }
+  }
+
+  openModal() {
+    this.modal.open(ModalComponent)
   }
 
   checkOnClick(){
@@ -385,6 +395,11 @@ export class HomeComponent implements OnInit {
     for (let j = 0; j < this.diagramLinkData.length; j++) {
 
       if (this.diagramLinkData[j].from == this.currNode && this.diagramLinkData[j].text.includes(buttonName)) {
+        
+        const nodeBefore = _.cloneDeep(this.diagramNodeData[this.diagramLinkData[j].from])
+        nodeBefore.color = 'lightblue'
+        nodeBefore.txtStroke = '#444444';
+        this.diagramNodeData[this.diagramLinkData[j].from] = _.cloneDeep(nodeBefore)
 
         //update order
         this.zOder += 1;
