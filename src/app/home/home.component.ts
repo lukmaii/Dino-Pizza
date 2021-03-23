@@ -465,7 +465,6 @@ export class HomeComponent implements OnInit {
         this.diagramLinkData[j] = _.cloneDeep(link);
       }
     }
-    this.inputStrings = [""]
-    this.clicked = [false, false, false, false];
+    this.onClickCancel('')
   }
 }
