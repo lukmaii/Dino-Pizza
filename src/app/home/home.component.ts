@@ -39,8 +39,8 @@ export class HomeComponent implements OnInit {
 
   constructor(private cdr: ChangeDetectorRef, private el: ElementRef, private modal: NgbModal, private eventEmitterService: EventEmitterService) { }
   ngOnInit(): void {
-    if (this.eventEmitterService.subsVar==undefined) {
-      this.eventEmitterService.subsVar = this.eventEmitterService.invokeHomeComponentFunction.subscribe((value: string) => {this.selectedPath(value); this.resetPath();})
+    if (this.eventEmitterService.subsVar == undefined) {
+      this.eventEmitterService.subsVar = this.eventEmitterService.invokeHomeComponentFunction.subscribe((value: string) => { this.selectedPath(value); this.resetPath(); })
     }
   }
 
@@ -48,8 +48,8 @@ export class HomeComponent implements OnInit {
     this.modal.open(ModalComponent)
   }
 
-  checkOnClick(){
-    if(this.clicked[0]||this.clicked[1]||this.clicked[2]||this.clicked[3]){
+  checkOnClick() {
+    if (this.clicked[0] || this.clicked[1] || this.clicked[2] || this.clicked[3]) {
       return false;
     }
     return true;
@@ -60,14 +60,14 @@ export class HomeComponent implements OnInit {
       this.imageSrc = imageNameObject.src;
       this.productName = imageNameObject.name;
     }
-    if (this.productName === 'ดับเบิ้ลชีส'){ this.checkPizza=true;}
-    else { this.checkPizza=false;}
+    if (this.productName === 'ดับเบิ้ลชีส') { this.checkPizza = true; }
+    else { this.checkPizza = false; }
     this.inputStrings.push(this.productName);
     this.clicked[0] = true;
   }
 
   onClickCrust(opt: string) {
-    if (this.clicked[2] === false){
+    if (this.clicked[2] === false) {
       this.crustOpt = opt;
     }
     this.inputStrings.push(this.crustOpt);
@@ -75,7 +75,7 @@ export class HomeComponent implements OnInit {
   }
 
   onClickSize(size: string) {
-    if (this.clicked[3] === false){
+    if (this.clicked[3] === false) {
       this.size = size;
     }
     this.inputStrings.push(this.size);
@@ -83,7 +83,7 @@ export class HomeComponent implements OnInit {
   }
 
   onClickTopping(opt: string) {
-    if(!this.checkPizza){this.cheeseOpt = opt;}
+    if (!this.checkPizza) { this.cheeseOpt = opt; }
     if (opt === 'เพิ่มชีส') {
       this.pizzaCheeses.forEach(obj => {
         if (obj.name === this.productName) {
@@ -92,7 +92,7 @@ export class HomeComponent implements OnInit {
         }
       })
     }
-    else{
+    else {
       this.pizza.forEach(obj => {
         if (obj.name === this.productName) {
           console.log(obj.name);
@@ -104,7 +104,7 @@ export class HomeComponent implements OnInit {
     this.clicked[3] = true;
   }
 
-  onClickCancel(opts:string) {
+  onClickCancel(opts: string) {
     this.clicked = [false, false, false, false];
     this.selectedValue = [0, 0, 0, 0];
     this.imageSrc = '/assets/img/Empty.png';
@@ -112,11 +112,11 @@ export class HomeComponent implements OnInit {
     this.crustOpt = '';
     this.cheeseOpt = '';
     this.size = '';
-    if(opts === 'cancel'){
+    if (opts === 'cancel') {
       this.inputStrings.push('Cancel');
     }
-    else{
-      this.inputStrings=['']
+    else {
+      this.inputStrings = ['']
     }
   }
 
@@ -398,7 +398,7 @@ export class HomeComponent implements OnInit {
     for (let j = 0; j < this.diagramLinkData.length; j++) {
 
       if (this.diagramLinkData[j].from == this.currNode && this.diagramLinkData[j].text.includes(buttonName)) {
-        
+
         const nodeBefore = _.cloneDeep(this.diagramNodeData[this.diagramLinkData[j].from])
         nodeBefore.color = 'lightblue'
         nodeBefore.txtStroke = '#444444';
@@ -434,36 +434,34 @@ export class HomeComponent implements OnInit {
 
   public resetPath() {
 
-    // console.log((this.currLink.from == 20) + '&&' + (this.currLink == 'Complete'));
-    if ( this.currLink.from == 19 || this.currLink.from == 20  && this.currLink.text == 'Complete') {
-      this.zOder = 0;
-      this.currNode = 0;
+    this.zOder = 0;
+    this.currNode = 0;
 
-      for (let i = 1; i < this.diagramNodeData.length; i++) {
-        //change node data
-        const node = _.cloneDeep(this.diagramNodeData[i]);
-        if (node.text == 'Finish') {
-          node.color = 'maroon';
-        }
-        else {
-          node.color = 'lightblue';
-          node.txtStroke = '#444444';
-        }
-        this.diagramNodeData[i] = _.cloneDeep(node);
+    for (let i = 1; i < this.diagramNodeData.length; i++) {
+      //change node data
+      const node = _.cloneDeep(this.diagramNodeData[i]);
+      if (node.text == 'Finish') {
+        node.color = 'maroon';
+        node.txtStroke = 'whitesmoke';
       }
+      else {
+        node.color = 'lightblue';
+        node.txtStroke = '#444444';
+      }
+      this.diagramNodeData[i] = _.cloneDeep(node);
+    }
 
-      for (let j = 1; j < this.diagramLinkData.length; j++) {
-        //change link data
-        const link = _.cloneDeep(this.diagramLinkData[j]);
-        link.stroke = '#444444';
-        link.strokeWidth = 1;
-        link.fill = '#444444';
-        link.arrStroke = '#444444';
-        link.scale = 1;
-        link.txtStroke = '#444444';
-        link.zOrder = 0;
-        this.diagramLinkData[j] = _.cloneDeep(link);
-      }
+    for (let j = 1; j < this.diagramLinkData.length; j++) {
+      //change link data
+      const link = _.cloneDeep(this.diagramLinkData[j]);
+      link.stroke = '#444444';
+      link.strokeWidth = 1;
+      link.fill = '#444444';
+      link.arrStroke = '#444444';
+      link.scale = 1;
+      link.txtStroke = '#444444';
+      link.zOrder = 0;
+      this.diagramLinkData[j] = _.cloneDeep(link);
     }
     this.onClickCancel('')
   }
