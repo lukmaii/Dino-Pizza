@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
   constructor(private cdr: ChangeDetectorRef, private el: ElementRef, private modal: NgbModal, private eventEmitterService: EventEmitterService) { }
   ngOnInit(): void {
     if (this.eventEmitterService.subsVar == undefined) {
-      this.eventEmitterService.subsVar = this.eventEmitterService.invokeHomeComponentFunction.subscribe((value: string) => { this.selectedPath(value); this.resetPath(); })
+      this.eventEmitterService.subsVar = this.eventEmitterService.invokeHomeComponentFunction.subscribe((value: string) => { this.selectedPath(value); this.resetPath(); this.onClickCancel('') })
     }
   }
 
@@ -463,6 +463,5 @@ export class HomeComponent implements OnInit {
       link.zOrder = 0;
       this.diagramLinkData[j] = _.cloneDeep(link);
     }
-    this.onClickCancel('')
   }
 }
