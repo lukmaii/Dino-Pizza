@@ -13,13 +13,13 @@ import { EventEmitterService } from '../event-emitter.service';
   encapsulation: ViewEncapsulation.ShadowDom
 })
 export class HomeComponent implements OnInit {
+  selectedValue = [0, 0, 2, 0];
   productName = '';
-  clicked = [false, false, false, false];
-  selectedValue = [0, 0, 0, 0];
+  step = 0;
   crustOpt = '';
   size = '';
   cheeseOpt = '';
-  inputStrings = [""];
+  inputStrings = new Array<String>();
   checkPizza = false;
 
   pizza = [{ id: 1, src: 'assets/img/Hawaiian.png', name: 'ฮาวายเอียน' },
@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
   // init product img
   imageSrc = '/assets/img/Empty.png';
 
-  pizzaCheeses = [{ id: 1, src: '/assets/img/HawaiianwithCheese.png', name: 'ฮาวายเอียน' },
+  pizzaCheeses = [{ id: 1, src: '/assets/img/HawaiianwithCheese.png', name: 'ฮาวายเอี้ยน' },
   { id: 2, src: '/assets/img/Empty.png', name: 'ดับเบิ้ลชีส' }]
 
   pizzaSizes = [{ id: 1, src: '/assets/img/M.png', name: 'กลาง' },
@@ -45,68 +45,72 @@ export class HomeComponent implements OnInit {
   }
 
   openModal() {
-    this.modal.open(ModalComponent)
-  }
-
-  checkOnClick() {
-    if (this.clicked[0] || this.clicked[1] || this.clicked[2] || this.clicked[3]) {
-      return false;
+    const modalRef = this.modal.open(ModalComponent);
+    modalRef.componentInstance.pizzaObj = {
+      productName : this.productName,
+      crustOpt : this.crustOpt,
+      size : this.size,
+      cheeseOpt : this.cheeseOpt,
+      imageSrc : this.imageSrc
     }
-    return true;
   }
 
-  onClickMenuBt(imageNameObject: any) {
-    if (this.clicked[1] === false) {
+  onClickMenuBt(imageNameObject: {id: number,src : string, name : string}) {
+    if (this.step <= 1) {
       this.imageSrc = imageNameObject.src;
       this.productName = imageNameObject.name;
+      this.step = 1;
+      if (this.productName === 'ดับเบิ้ลชีส') { this.checkPizza = true;}
+      else { this.checkPizza = false;}
     }
-    if (this.productName === 'ดับเบิ้ลชีส') { this.checkPizza = true; }
-    else { this.checkPizza = false; }
-    this.inputStrings.push(this.productName);
-    this.clicked[0] = true;
+    this.inputStrings.push(imageNameObject.name);
   }
 
   onClickCrust(opt: string) {
-    if (this.clicked[2] === false) {
+    if (1 <= this.step && this.step <= 2) {
       this.crustOpt = opt;
+      this.step = 2;
     }
-    this.inputStrings.push(this.crustOpt);
-    this.clicked[1] = true;
+    this.inputStrings.push(opt);
   }
 
   onClickSize(size: string) {
-    if (this.clicked[3] === false) {
+    if (2 <= this.step && this.step <= 3) {
       this.size = size;
+      this.step = 3;
     }
-    this.inputStrings.push(this.size);
-    this.clicked[2] = true;
+    this.inputStrings.push(size);
   }
 
   onClickTopping(opt: string) {
-    if (!this.checkPizza) { this.cheeseOpt = opt; }
-    if (opt === 'เพิ่มชีส') {
-      this.pizzaCheeses.forEach(obj => {
-        if (obj.name === this.productName) {
-          console.log(obj.name);
-          this.imageSrc = obj.src;
-        }
-      })
-    }
-    else {
-      this.pizza.forEach(obj => {
-        if (obj.name === this.productName) {
-          console.log(obj.name);
-          this.imageSrc = obj.src;
-        }
-      })
+    if (!this.checkPizza) { this.cheeseOpt = (opt === 'เพิ่มชีส') ? 'เพิ่มชีส' : ''; }
+    if(3 <= this.step)
+    {
+      if (opt === 'เพิ่มชีส') {
+        this.pizzaCheeses.forEach(obj => {
+          if (obj.name === this.productName) {
+            //console.log(obj.name);
+            this.imageSrc = obj.src;
+          }
+        })
+        this.step = 4;
+      }
+      else {
+        this.pizza.forEach(obj => {
+          if (obj.name === this.productName) {
+            //console.log(obj.name);
+            this.imageSrc = obj.src;
+          }
+        })
+        this.step = 3;
+      }
     }
     this.inputStrings.push(opt);
-    this.clicked[3] = true;
   }
 
   onClickCancel(opts: string) {
-    this.clicked = [false, false, false, false];
-    this.selectedValue = [0, 0, 0, 0];
+    this.selectedValue = [0, 0, 2, 0];
+    this.step = this.currNode === 19 ? 4 : 0;
     this.imageSrc = '/assets/img/Empty.png';
     this.productName = '';
     this.crustOpt = '';
@@ -116,10 +120,21 @@ export class HomeComponent implements OnInit {
       this.inputStrings.push('Cancel');
     }
     else {
-      this.inputStrings = ['']
+      this.inputStrings = new Array<String>()
     }
   }
 
+  // updateValueButton
+  onUpdateValue(index : number , select : number,) {
+    if(index === 0 && this.step <= 1)
+      this.selectedValue[0] = select;
+    if(index === 1 && 1 <= this.step && this.step <= 2)
+      this.selectedValue[1] = select;
+    if(index === 3 && 2 <= this.step && this.step <= 3)
+      this.selectedValue[3] = select;
+    if(index === 2 && 3 <= this.step && this.step <= 4)
+      this.selectedValue[2] = select;
+  }
   //--------------------- dfa ---------------------//
 
   @ViewChild('myDiagram', { static: true })
@@ -327,7 +342,7 @@ export class HomeComponent implements OnInit {
     { key: -61, from: 12, to: 20, segmentFraction: 0.126, points: [1095, 525, 1300, 525, 1300, 1010, 1350, 1010], text: 'Confirm' },
     //from ฮาวายเอี้ยน บางกรอบ กลาง เพิ่มชีส (13)
     { key: -62, from: 13, to: 0, segmentFraction: 0.7228, points: [1100, 750, 1250, 750, 1250, 1825, 25, 1825, 25, 1045], text: 'Cancel' },
-    { key: -63, from: 13, to: 10, segmentFraction: 0.5, points: [1075, 705, 1075, 675, 1025, 675, 1025, 705], segmentOffset: new go.Point(0, 25), text: 'ฮาวายเอียน, ดับเบิ้ลชีส,\nหนานุ่ม, บางกรอบ,\nกลาง, ใหญ่, เพิ่มชีส, Complete' },
+    { key: -63, from: 13, to: 13, segmentFraction: 0.5, points: [1075, 705, 1075, 675, 1025, 675, 1025, 705], segmentOffset: new go.Point(0, 25), text: 'ฮาวายเอียน, ดับเบิ้ลชีส,\nหนานุ่ม, บางกรอบ,\nกลาง, ใหญ่, เพิ่มชีส, Complete' },
     { key: -64, from: 13, to: 9, segmentFraction: 0.25, points: [1000, 750, 850, 750], text: 'ไม่เพิ่มชีส' },
     { key: -65, from: 13, to: 20, segmentFraction: 0.17, points: [1095, 725, 1300, 725, 1300, 1010, 1350, 1010], text: 'Confirm' },
     //from ฮาวายเอี้ยน บางกรอบ ใหญ่ เพิ่มชีส (14)
@@ -357,10 +372,10 @@ export class HomeComponent implements OnInit {
     { key: -85, from: 18, to: 20, segmentFraction: 0.1, points: [1100, 1750, 1300, 1750, 1300, 1010, 1350, 1010], text: 'Confirm' },
     //from Trap (19)
     { key: -86, from: 19, to: 0, segmentFraction: 0.625, points: [1700, 1050, 1700, 1810, 50, 1810, 50, 1050], text: 'Complete' },
-    { key: -87, from: 19, to: 19, segmentFraction: 0.5, points: [1725, 955, 1725, 925, 1675, 925, 1675, 955], segmentOffset: new go.Point(0, 40), text: 'ฮาวายเอี้ยน, ดับเบิ้ลชีส,\nหนานุ่ม, บางกรอบ,\nกลาง, ใหญ่,\nเพิ่มชีส, ไม่เพิ่มชีส,\nComfirm, Cancel' },
+    { key: -87, from: 19, to: 19, segmentFraction: 0.5, points: [1725, 955, 1725, 925, 1675, 925, 1675, 955], segmentOffset: new go.Point(0, 40), text: 'ฮาวายเอี้ยน, ดับเบิ้ลชีส,\nหนานุ่ม, บางกรอบ,\nกลาง, ใหญ่,\nเพิ่มชีส, ไม่เพิ่มชีส,\nConfirm, Cancel' },
     //from Finish (20)
     { key: -88, from: 20, to: 0, segmentFraction: 0.586, points: [1400, 1050, 1400, 1810, 50, 1810, 50, 1050], text: 'Complete' },
-    { key: -89, from: 20, to: 19, segmentFraction: 0.5, points: [1450, 1000, 1650, 1000], text: 'ฮาวายเอี้ยน, ดับเบิ้ลชีส,\nหนานุ่ม, บางกรอบ,\nกลาง, ใหญ่,\nเพิ่มชีส, ไม่เพิ่มชีส,\nComfirm, Cancel' },
+    { key: -89, from: 20, to: 19, segmentFraction: 0.5, points: [1450, 1000, 1650, 1000], text: 'ฮาวายเอี้ยน, ดับเบิ้ลชีส,\nหนานุ่ม, บางกรอบ,\nกลาง, ใหญ่,\nเพิ่มชีส, ไม่เพิ่มชีส,\nConfirm, Cancel' },
   ];
 
   public diagramDivClassName: string = 'myDiagramDiv';
@@ -371,7 +386,7 @@ export class HomeComponent implements OnInit {
   public selectedNode: go.Node | null = null;
   public currNode = 0;
   public currLink: any;
-  public zOder = 0;
+  public zOrder = 0;
 
   public ngAfterViewInit() {
     if (this.observedDiagram) return;
@@ -394,9 +409,7 @@ export class HomeComponent implements OnInit {
   } // end ngAfterViewInit
 
   public selectedPath(buttonName: string) {
-
     for (let j = 0; j < this.diagramLinkData.length; j++) {
-
       if (this.diagramLinkData[j].from == this.currNode && this.diagramLinkData[j].text.includes(buttonName)) {
 
         const nodeBefore = _.cloneDeep(this.diagramNodeData[this.diagramLinkData[j].from])
@@ -405,7 +418,7 @@ export class HomeComponent implements OnInit {
         this.diagramNodeData[this.diagramLinkData[j].from] = _.cloneDeep(nodeBefore)
 
         //update order
-        this.zOder += 1;
+        this.zOrder += 1;
 
         //change link data
         const link = _.cloneDeep(this.diagramLinkData[j]);
@@ -415,7 +428,7 @@ export class HomeComponent implements OnInit {
         link.arrStroke = '#52ce60';
         link.scale = 2;
         link.txtStroke = '#52ce60';
-        link.zOrder = this.zOder;
+        link.zOrder = this.zOrder;
         this.diagramLinkData[j] = _.cloneDeep(link);
 
         //change node data
@@ -434,7 +447,7 @@ export class HomeComponent implements OnInit {
 
   public resetPath() {
 
-    this.zOder = 0;
+    this.zOrder = 0;
     this.currNode = 0;
 
     for (let i = 1; i < this.diagramNodeData.length; i++) {

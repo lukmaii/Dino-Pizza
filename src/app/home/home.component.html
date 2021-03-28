@@ -23,15 +23,13 @@
         style="margin-bottom: 2.5%"
       />
     </div>
-    <div class="menuName">
-      <p *ngIf="checkOnClick(); ngElse showMenu" >พิซซ่าหน้าอะไรเอ๋ย</p>
-      <p #showMenu>{{productName}}{{crustOpt}}{{size}}{{cheeseOpt}}</p>
-    </div>
+      <div class="menuName">{{this.step > 0 ? (productName + crustOpt + size + cheeseOpt) : "พิซซ่าหน้าอะไรเอ๋ย"}}</div>
     <div class="product_button" >
       <label
         *ngFor="let imgPizza of pizza"
         [ngClass]="{
             button_crust: selectedValue[0] != imgPizza.id,
+            button_crust_disable: selectedValue[0] != imgPizza.id && step > 1,
             button_crust_focus: selectedValue[0] == imgPizza.id
             }"
         type="button"
@@ -39,9 +37,9 @@
       <input
           type="radio"
           name="pizza"
-          [(ngModel)]="selectedValue[0]"
+          [ngModel]="selectedValue[0]"
           [value]="imgPizza.id"
-          (click)="selectedPath(imgPizza.name); onClickMenuBt(imgPizza);"
+          (click)="selectedPath(imgPizza.name); onClickMenuBt(imgPizza); onUpdateValue(0,imgPizza.id);"
         />
         {{ imgPizza.name }}
       </label>
@@ -52,14 +50,15 @@
         *ngFor="let crustOpt of crustOpts"
         [ngClass]="{
         button_crust: selectedValue[1] != crustOpt.id,
+        button_crust_disable: step < 1 || (selectedValue[1] != crustOpt.id && step > 2),
         button_crust_focus: selectedValue[1] == crustOpt.id
         }"
         ><input
           type="radio"
           name="crust"
-          [(ngModel)]="selectedValue[1]"
+          [ngModel]="selectedValue[1]"
           [value]="crustOpt.id"
-          (click)="selectedPath(crustOpt.opt); onClickCrust(crustOpt.opt);"
+          (click)="selectedPath(crustOpt.opt); onClickCrust(crustOpt.opt); onUpdateValue(1,crustOpt.id);"
         />{{ crustOpt.opt }}</label
       >
     </div>
@@ -68,15 +67,15 @@
       <label
         *ngFor="let pizzaSize of pizzaSizes"
         [ngClass]="{
-        size_button: selectedValue[3] != pizzaSize.id,
-        size_button_focus: selectedValue[3] == pizzaSize.id
+        size_button: step <= 2 || selectedValue[3] != pizzaSize.id,
+        size_button_focus: step > 2 && selectedValue[3] == pizzaSize.id
         }"
         ><input
           type="radio"
           name="size"
-          [(ngModel)]="selectedValue[3]"
+          [ngModel]="selectedValue[3]"
           [value]="pizzaSize.id"
-          (click)="selectedPath(pizzaSize.name); onClickSize(pizzaSize.name);"
+          (click)="selectedPath(pizzaSize.name); onClickSize(pizzaSize.name); onUpdateValue(3,pizzaSize.id);"
         /><img [src]="pizzaSize.src"
         /></label>
     </div>
@@ -87,14 +86,14 @@
         [ngClass]="{
         button_crust: selectedValue[2] != cheeseOpt.id,
         button_crust_focus: selectedValue[2] == cheeseOpt.id,
-        button_crust_disable: checkPizza
+        button_crust_disable: checkPizza || step < 3 || (step > 4 && selectedValue[2] != cheeseOpt.id) 
         }"
         ><input
           type="radio"
           name="cheese"
-          [(ngModel)]="selectedValue[2]"
+          [ngModel]="selectedValue[2]"
           [value]="cheeseOpt.id"
-          (click)="selectedPath(cheeseOpt.opt); onClickTopping(cheeseOpt.opt);"
+          (click)="selectedPath(cheeseOpt.opt); onClickTopping(cheeseOpt.opt); onUpdateValue(2,cheeseOpt.id);"
         />{{ cheeseOpt.opt }}</label>
     </div>
       <button
@@ -105,7 +104,7 @@
         margin: 2.5%;
         color: #f7f6cf;
       "
-        (click)="clicked[2] ? [selectedPath('Confirm'), openModal()] : selectedPath('Confirm')"
+        (click)="step >= 3 ? [selectedPath('Confirm'), step = 5 , openModal()] : selectedPath('Confirm')"
       >
         Order Now!!
       </button>
@@ -119,7 +118,7 @@
     <div class="stringArea">
       <h1>String Input</h1>
       <div class="inputStringArea">
-        <p *ngFor="let inputString of inputStrings">{{inputString}}</p>
+        <span *ngFor="let inputString of inputStrings">{{inputString}}</span>
       </div>
     </div>
     <img src="/assets/img/Dinosor.png" />

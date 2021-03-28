@@ -1,11 +1,26 @@
-<div class="modal-header">
-    <h4 class="modal-title">Create New </h4>
+<div
+  class="modal-header"
+>
+  <span class="modal-title h2">Comfirm Order</span>
+</div>
+<div
+  class="modal-body d-flex flex-column justify-content-center align-items-center"
+>
+  <img class="pizza_img" [src]="pizzaObj.imageSrc" alt="pizza_image" />
+  <div class="pizza_desc">
+    {{
+      pizzaObj.productName +
+        pizzaObj.crustOpt +
+        pizzaObj.size +
+        pizzaObj.cheeseOpt
+    }}
   </div>
-  <div class="modal-body">
-    <p>One fine body&hellip;</p>
-  </div>
-  <div class="modal-footer">
-    <button class="button" (click)="selectedPath('Complete'); activeModal.dismiss('Cross click')">
-        Complete
-      </button>
-  </div>
+</div>
+<div class="modal-footer">
+  <button
+    class="button"
+    (click)="selectedPath('Complete'); activeModal.dismiss('Cross click')"
+  >
+    Complete
+  </button>
+</div>

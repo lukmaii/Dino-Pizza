@@ -1,0 +1,30 @@
+* {
+  font-family: "kanit";
+}
+
+.button {
+  font-size: 1rem;
+  padding: 2% 6%;
+  text-align: center;
+  border-radius: 5px;
+  height: 2vh;
+  min-height: 50px;
+  min-width: 120px;
+  border-color: transparent;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  background-color: #5784ba;
+  margin: 1%;
+  color: #f7f6cf;
+}
+
+.pizza_img {
+  max-width: 60%;
+  max-height: 60%;
+}
+
+.pizza_desc{
+  font-size: 1.25rem;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}

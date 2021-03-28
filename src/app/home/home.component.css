@@ -76,9 +76,6 @@
   font-family: 'kanit';
   font-size: 20px;
   margin: 5% 0%;
-}
-
-.menuName > p {
   text-align: center;
 }
 
@@ -91,7 +88,7 @@ input[type="radio"] {
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
 }
 
-.button_crust,.button{
+.button_crust,.button {
   font-family: "Kanit";
   font-size: 1rem;
   padding: 0 10%;
@@ -138,6 +135,10 @@ input[type="radio"] {
   border-color: transparent;
   transition-duration: 0.4s;
   cursor: context-menu;
+}
+
+.button_crust_disable {
+  cursor: pointer;
 }
 
 .size_button {
@@ -216,15 +217,16 @@ footer img {
   margin: 0 0 auto auto;
 }
 
-.inputStringArea > p{
-  display: inline;
-  margin-top: 2%;
+.inputStringArea > span{
+  margin-top: 5px;
   margin-right: 1%;
   font-family: 'kanit';
   font-size: 18px;
 }
 
 .inputStringArea{
+  display: flex;
+  flex-wrap: wrap;
   margin: 0 0 0 2%;
 }
 

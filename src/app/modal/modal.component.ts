@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { EventEmitterService } from '../event-emitter.service';
 
@@ -8,6 +8,15 @@ import { EventEmitterService } from '../event-emitter.service';
   styleUrls: ['./modal.component.css']
 })
 export class ModalComponent implements OnInit {
+  @Input()
+  public pizzaObj = {
+    productName : "" ,
+    crustOpt : "" ,
+    size : "" ,
+    cheeseOpt : "" ,
+    imageSrc : ""
+  } ;
+  
   constructor(public activeModal: NgbActiveModal, private eventEmitterService: EventEmitterService) { }
 
   ngOnInit(): void {
@@ -16,5 +25,4 @@ export class ModalComponent implements OnInit {
   selectedPath(value: string) {
     this.eventEmitterService.onModalButtonClick(value);
   }
-
 }
