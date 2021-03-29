@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
   pizza = [{ id: 1, src: 'assets/img/Hawaiian.png', name: 'ฮาวายเอี้ยน' },
   { id: 2, src: 'assets/img/Empty.png', name: 'ดับเบิ้ลชีส' }]
   // init product img
-  imageSrc = 'assets/img/Empty.png';
+  imageSrc = 'assets/img/PizzaAraiauei.png';
 
   pizzaCheeses = [{ id: 1, src: 'assets/img/HawaiianwithCheese.png', name: 'ฮาวายเอี้ยน' },
   { id: 2, src: 'assets/img/Empty.png', name: 'ดับเบิ้ลชีส' }]
@@ -116,7 +116,7 @@ export class HomeComponent implements OnInit {
     if (this.currNode != 19) {
       this.selectedValue = [0, 0, 2, 0];
       this.step = this.currNode = 0;
-      this.imageSrc = 'assets/img/Empty.png';
+      this.imageSrc = 'assets/img/PizzaAraiauei.png';
       this.productName = '';
       this.crustOpt = '';
       this.cheeseOpt = '';
