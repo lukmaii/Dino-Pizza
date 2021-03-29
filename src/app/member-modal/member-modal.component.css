@@ -1,0 +1,27 @@
+* {
+    font-family: "kanit";
+  }
+
+.container {
+    padding: 5% 10% 10% 10%;
+    background-color: white;
+    border-radius: 2%;
+}
+
+.member_name {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 5%;
+}
+
+table {
+    table-layout: fixed;
+    width: 80%;
+    font-size: 1.25rem;
+}
+
+td {
+    text-align: left;
+    padding: 2% 0% 2% 0%;
+}

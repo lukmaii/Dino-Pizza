@@ -4,6 +4,7 @@ import { DiagramComponent } from 'gojs-angular';
 import * as _ from 'lodash';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { ModalComponent } from '../modal/modal.component';
+import { MemberModalComponent } from '../member-modal/member-modal.component';
 import { EventEmitterService } from '../event-emitter.service';
 
 @Component({
@@ -47,21 +48,25 @@ export class HomeComponent implements OnInit {
   openModal() {
     const modalRef = this.modal.open(ModalComponent);
     modalRef.componentInstance.pizzaObj = {
-      productName : this.productName,
-      crustOpt : this.crustOpt,
-      size : this.size,
-      cheeseOpt : this.cheeseOpt,
-      imageSrc : this.imageSrc
+      productName: this.productName,
+      crustOpt: this.crustOpt,
+      size: this.size,
+      cheeseOpt: this.cheeseOpt,
+      imageSrc: this.imageSrc
     }
   }
 
-  onClickMenuBt(imageNameObject: {id: number,src : string, name : string}) {
+  openMemberModal() {
+    this.modal.open(MemberModalComponent);
+  }
+
+  onClickMenuBt(imageNameObject: { id: number, src: string, name: string }) {
     if (this.step <= 1) {
       this.imageSrc = imageNameObject.src;
       this.productName = imageNameObject.name;
       this.step = 1;
-      if (this.productName === 'ดับเบิ้ลชีส') { this.checkPizza = true;}
-      else { this.checkPizza = false;}
+      if (this.productName === 'ดับเบิ้ลชีส') { this.checkPizza = true; }
+      else { this.checkPizza = false; }
     }
     this.inputStrings.push(imageNameObject.name);
   }
@@ -84,8 +89,7 @@ export class HomeComponent implements OnInit {
 
   onClickTopping(opt: string) {
     if (!this.checkPizza) { this.cheeseOpt = (opt === 'เพิ่มชีส') ? 'เพิ่มชีส' : ''; }
-    if(3 <= this.step)
-    {
+    if (3 <= this.step && this.step <= 4) {
       if (opt === 'เพิ่มชีส') {
         this.pizzaCheeses.forEach(obj => {
           if (obj.name === this.productName) {
@@ -109,13 +113,15 @@ export class HomeComponent implements OnInit {
   }
 
   onClickCancel(opts: string) {
-    this.selectedValue = [0, 0, 2, 0];
-    this.step = this.currNode === 19 ? 4 : 0;
-    this.imageSrc = '/assets/img/Empty.png';
-    this.productName = '';
-    this.crustOpt = '';
-    this.cheeseOpt = '';
-    this.size = '';
+    if (this.currNode != 19) {
+      this.selectedValue = [0, 0, 2, 0];
+      this.step = this.currNode = 0;
+      this.imageSrc = '/assets/img/Empty.png';
+      this.productName = '';
+      this.crustOpt = '';
+      this.cheeseOpt = '';
+      this.size = '';
+    }
     if (opts === 'cancel') {
       this.inputStrings.push('Cancel');
     }
@@ -125,14 +131,14 @@ export class HomeComponent implements OnInit {
   }
 
   // updateValueButton
-  onUpdateValue(index : number , select : number,) {
-    if(index === 0 && this.step <= 1)
+  onUpdateValue(index: number, select: number,) {
+    if (index === 0 && this.step <= 1)
       this.selectedValue[0] = select;
-    if(index === 1 && 1 <= this.step && this.step <= 2)
+    if (index === 1 && 1 <= this.step && this.step <= 2)
       this.selectedValue[1] = select;
-    if(index === 3 && 2 <= this.step && this.step <= 3)
+    if (index === 3 && 2 <= this.step && this.step <= 3)
       this.selectedValue[3] = select;
-    if(index === 2 && 3 <= this.step && this.step <= 4)
+    if (index === 2 && 3 <= this.step && this.step <= 4)
       this.selectedValue[2] = select;
   }
   //--------------------- dfa ---------------------//

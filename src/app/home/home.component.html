@@ -1,14 +1,8 @@
 <div class="container">
   <section class="main">
-    <gojs-diagram
-      #myDiagram
-      [initDiagram]="initDiagram"
-      [nodeDataArray]="diagramNodeData"
-      [linkDataArray]="diagramLinkData"
-      [divClassName]="diagramDivClassName"
-      [modelData]="diagramModelData"
-      [skipsDiagramUpdate]="skipsDiagramUpdate"
-    >
+    <gojs-diagram #myDiagram [initDiagram]="initDiagram" [nodeDataArray]="diagramNodeData"
+      [linkDataArray]="diagramLinkData" [divClassName]="diagramDivClassName" [modelData]="diagramModelData"
+      [skipsDiagramUpdate]="skipsDiagramUpdate">
     </gojs-diagram>
   </section>
   <aside class="sidebar">
@@ -17,100 +11,65 @@
     </div>
     <h1>MENU</h1>
     <div class="product">
-      <img
-        class="product_img"
-        src="{{ imageSrc }}"
-        style="margin-bottom: 2.5%"
-      />
+      <img class="product_img" src="{{ imageSrc }}" style="margin-bottom: 2.5%" />
     </div>
-      <div class="menuName">{{this.step > 0 ? (productName + crustOpt + size + cheeseOpt) : "พิซซ่าหน้าอะไรเอ๋ย"}}</div>
-    <div class="product_button" >
-      <label
-        *ngFor="let imgPizza of pizza"
-        [ngClass]="{
+    <div class="menuName">{{this.step > 0 ? (productName + crustOpt + size + cheeseOpt) : "พิซซ่าหน้าอะไรเอ๋ย"}}</div>
+    <div class="product_button">
+      <label *ngFor="let imgPizza of pizza" [ngClass]="{
             button_crust: selectedValue[0] != imgPizza.id,
             button_crust_disable: selectedValue[0] != imgPizza.id && step > 1,
             button_crust_focus: selectedValue[0] == imgPizza.id
-            }"
-        type="button"
-      >
-      <input
-          type="radio"
-          name="pizza"
-          [ngModel]="selectedValue[0]"
-          [value]="imgPizza.id"
-          (click)="selectedPath(imgPizza.name); onClickMenuBt(imgPizza); onUpdateValue(0,imgPizza.id);"
-        />
+            }" type="button">
+        <input type="radio" name="pizza" [ngModel]="selectedValue[0]" [value]="imgPizza.id"
+          (click)="selectedPath(imgPizza.name); onClickMenuBt(imgPizza); onUpdateValue(0,imgPizza.id);" />
         {{ imgPizza.name }}
       </label>
     </div>
     <h1>เลือกขอบ</h1>
     <div class="product_button">
-      <label
-        *ngFor="let crustOpt of crustOpts"
-        [ngClass]="{
+      <label *ngFor="let crustOpt of crustOpts" [ngClass]="{
         button_crust: selectedValue[1] != crustOpt.id,
         button_crust_disable: step < 1 || (selectedValue[1] != crustOpt.id && step > 2),
         button_crust_focus: selectedValue[1] == crustOpt.id
-        }"
-        ><input
-          type="radio"
-          name="crust"
-          [ngModel]="selectedValue[1]"
-          [value]="crustOpt.id"
-          (click)="selectedPath(crustOpt.opt); onClickCrust(crustOpt.opt); onUpdateValue(1,crustOpt.id);"
-        />{{ crustOpt.opt }}</label
-      >
+        }"><input type="radio" name="crust" [ngModel]="selectedValue[1]" [value]="crustOpt.id"
+          (click)="selectedPath(crustOpt.opt); onClickCrust(crustOpt.opt); onUpdateValue(1,crustOpt.id);" />{{
+        crustOpt.opt }}</label>
     </div>
     <h1>เลือกขนาด</h1>
     <div class="product_button">
-      <label
-        *ngFor="let pizzaSize of pizzaSizes"
-        [ngClass]="{
+      <label *ngFor="let pizzaSize of pizzaSizes" [ngClass]="{
         size_button: step <= 2 || selectedValue[3] != pizzaSize.id,
         size_button_focus: step > 2 && selectedValue[3] == pizzaSize.id
-        }"
-        ><input
-          type="radio"
-          name="size"
-          [ngModel]="selectedValue[3]"
-          [value]="pizzaSize.id"
-          (click)="selectedPath(pizzaSize.name); onClickSize(pizzaSize.name); onUpdateValue(3,pizzaSize.id);"
-        /><img [src]="pizzaSize.src"
-        /></label>
+        }"><input type="radio" name="size" [ngModel]="selectedValue[3]" [value]="pizzaSize.id"
+          (click)="selectedPath(pizzaSize.name); onClickSize(pizzaSize.name); onUpdateValue(3,pizzaSize.id);" /><img
+          [src]="pizzaSize.src" /></label>
     </div>
     <h1>Topping</h1>
     <div class="product_button">
-        <label
-        *ngFor="let cheeseOpt of cheeseOpts"
-        [ngClass]="{
+      <label *ngFor="let cheeseOpt of cheeseOpts" [ngClass]="{
         button_crust: selectedValue[2] != cheeseOpt.id,
         button_crust_focus: selectedValue[2] == cheeseOpt.id,
         button_crust_disable: checkPizza || step < 3 || (step > 4 && selectedValue[2] != cheeseOpt.id) 
-        }"
-        ><input
-          type="radio"
-          name="cheese"
-          [ngModel]="selectedValue[2]"
-          [value]="cheeseOpt.id"
-          (click)="selectedPath(cheeseOpt.opt); onClickTopping(cheeseOpt.opt); onUpdateValue(2,cheeseOpt.id);"
-        />{{ cheeseOpt.opt }}</label>
+        }"><input type="radio" name="cheese" [ngModel]="selectedValue[2]" [value]="cheeseOpt.id"
+          (click)="selectedPath(cheeseOpt.opt); onClickTopping(cheeseOpt.opt); onUpdateValue(2,cheeseOpt.id);" />{{
+        cheeseOpt.opt }}</label>
     </div>
-      <button
-      class="button"
-      type="submit"
-      style="
+    <button class="button" type="submit" style="
         background-color: #5784ba;
         margin: 2.5%;
         color: #f7f6cf;
-      "
-        (click)="step >= 3 ? [selectedPath('Confirm'), step = 5 , openModal()] : selectedPath('Confirm')"
-      >
-        Order Now!!
-      </button>
+      " (click)="step >= 3 ? [selectedPath('Confirm'), step = 5 , openModal()] : selectedPath('Confirm')">
+      Order Now!!
+    </button>
     <div class="product_button">
-      <button class="button" type="reset" (click)="selectedPath('Cancel'); onClickCancel('cancel');">
+      <button class="button" type="reset" style="margin: 2.5%"
+        (click)="selectedPath('Cancel'); onClickCancel('cancel');">
         Cancel
+      </button>
+    </div>
+    <div class="product_button">
+      <button class="button" style="background-color:#f4cfe0; margin: 2.5%;" (click)=" openMemberModal();">
+        Member
       </button>
     </div>
   </aside>

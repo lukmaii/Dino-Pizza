@@ -1,0 +1,19 @@
+<div style="padding: 2%; background-color: #E5E5E5;">
+    <button type="button" class="close" style="padding-right: 5%;" (click)="activeModal.dismiss('Cross click')">
+        <span style="font-size: 50px;">&times;</span>
+    </button>
+    <div class="container">
+        <div class="modal-header d-flex flex-column align-items-center">
+            <span class="modal-title h3" style="font-weight: bold;">Member</span>
+        </div>
+        <div class="member_name">
+            <table *ngFor="let member of members">
+                <tr>
+                    <td>{{member.id}}</td>
+                    <td>{{member.firstname}}</td>
+                    <td>{{member.lastname}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

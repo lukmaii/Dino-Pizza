@@ -38,7 +38,7 @@
   flex-direction: column;
   background: #b6d8f3;
   max-width: 100%;
-  padding: 0 2%;
+  padding: 0 2% 0.5%;
 }
 
 .sidebar > h1 {

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import {MatButtonModule} from '@angular/material/button'
+import { MatButtonModule } from '@angular/material/button'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,12 +12,14 @@ import { GojsAngularModule } from 'gojs-angular';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from './modal/modal.component';
+import { MemberModalComponent } from './member-modal/member-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    ModalComponent
+    ModalComponent,
+    MemberModalComponent
   ],
   imports: [
     BrowserModule,
