@@ -141,6 +141,10 @@ input[type="radio"] {
   cursor: pointer;
 }
 
+.button:focus {
+  outline: none;
+}
+
 .size_button {
   font-size: 2em;
   padding: 0 5%;
