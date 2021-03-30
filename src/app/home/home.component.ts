@@ -88,8 +88,8 @@ export class HomeComponent implements OnInit {
   }
 
   onClickTopping(opt: string) {
-    if (!this.checkPizza) { this.cheeseOpt = (opt === 'เพิ่มชีส') ? 'เพิ่มชีส' : ''; }
     if (3 <= this.step && this.step <= 4) {
+      if (!this.checkPizza) { this.cheeseOpt = (opt === 'เพิ่มชีส') ? 'เพิ่มชีส' : ''; }
       if (opt === 'เพิ่มชีส') {
         this.pizzaCheeses.forEach(obj => {
           if (obj.name === this.productName) {
